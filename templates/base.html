@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block meta %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeon Dwellers | {% block extra_title %} {% endblock %}</title>
+    {% endblock %}
+    {% block css %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    {% endblock %}
+
+    {% block js %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% endblock %}
+    
+    {% block extra_head %}
+    {% endblock %}
+
+</head>
+<body>
+    <header>
+        <nav>
+
+        </nav>
+    </header>
+
+    {% block page_header %}
+    {% endblock %}
+
+    <main class="content-container container-fluid">
+    {% block content %}
+    {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2020 Dungeon Dwellers</p>
+    </footer>
+
+    {% block postload_js %}
+    {% endblock %}
+</body>
+</html>
