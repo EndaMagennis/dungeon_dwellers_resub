@@ -3,11 +3,37 @@
 
 {% block extra_title %}Home{% endblock %}
 
+{% block page_header %}
+    <div class="row promotions-container text-center">
+        <a href="#">
+            <div class="col-12">
+                <h5 class="bg-warning">Check out our latest promotions!</h5>
+            </div>
+        </a>
+    </div>
+{% endblock %}
+
 {% block content %}
-    <div class="row">
-        <div class="col">
-            <h1>Welcome to Dungeon Dwellers</h1>
-            <p>Here you can find all the information you need to start your adventure in the world of Dungeon Dwellers.</p>
+    <div class="row my-3">
+        <div class="col-12 home-content-container container-fluid">
+            <div class="row welcome-banner container-fluid">
+                <div class="col-12">
+                    <h1 class="text-center">Welcome to Dungeon Dwellers!</h1>
+                </div>
+                <div class="col-12">
+                    <p class="text-center">Your one-stop shop for all things tabletop RPG!</p>
+                </div>
+            </div>
+            <div class="row call-to-action-container my-3 bg-light p-4">
+                <div class="col-12 action-container container-fluid bg-dark opacity-75 rounded-1 text-light p-3">
+                    <div class="row">
+                        <div class="col-10 offset-1">
+                            <h3 class="">Ready to start your adventure?</h3>
+                            <a href="#" class="btn btn-outline-light">Shop now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
