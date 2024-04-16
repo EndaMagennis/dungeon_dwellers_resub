@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_title %}Products{% endblock %}
+
+{% block content %}
+
+<div class="row my-3">
+    <div class="products-container container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center">Our Products</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p class="text-center">Check out our selection of products!</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="row text-center text-dark">
+                    {% if products %}
+                        {% for product in products %}
+                        <div class="col-4">
+                            <div class="card">
+                                <img src="{{ product.get_main_image }}" class="card-img-top" alt="{{ product.name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.name }}</h5>
+                                    <p class="card-text">{{ product.description }}</p>
+                                    <p class="card-text">{{ product.price }}</p>
+                                    <a href="#" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                    <div class="col-12">
+                        <p>No products found.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}

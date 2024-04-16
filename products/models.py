@@ -258,9 +258,29 @@ class Product(models.Model):
         return self.images.all()
     
     def get_main_image(self):
-        # Return the main image of the product
-        return self.images.filter(is_default=True).first()
+        # The get_main_image method returns the main image of the product.
+        images = ProductImage.objects.filter(product=self)
+        if images.exists():
+            default_image = images.filter(is_default=True)
+            if default_image.exists():
+                return default_image.first().image_url
+            return images.first().image_url
+        return 'static/images/default_product.jpg'
     
+    
+    def disable_fields_based_on_category(self):
+        # Disable fields based on the category of the product
+        if self.category:
+            if self.category.name == 'board_game':
+                self.has_dimensions = False
+                self.has_quantity = False
+            else:
+                self.has_dimensions = True
+                self.has_quantity = True
+        if not self.has_dimensions:
+            self.height = None
+        if  not self.has_quantity:
+            self.quantity = None
     
 
 class ProductImage(models.Model):
