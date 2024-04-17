@@ -24,12 +24,17 @@
                         {% for product in products %}
                         <div class="col-4">
                             <div class="card">
-                                <img src="{{ product.get_main_image }}" class="card-img-top" alt="{{ product.name }}">
+                                {% if product.get_all_images %}
+                                    {% load cloudinary %}
+                                    {% cloudinary product.get_main_image.image.url quality='auto' crop='pad' background='gen_fill:ignore-foreground_true' alt=product.name%}
+                                {% else %}
+                                <img src="{% static 'images/default_product.jpg' %}" class="card-img-top" alt="{{ product.name }}">
+                                {% endif %}
                                 <div class="card-body">
                                     <h5 class="card-title">{{ product.name }}</h5>
                                     <p class="card-text">{{ product.description }}</p>
-                                    <p class="card-text">{{ product.price }}</p>
-                                    <a href="#" class="btn btn-primary">View</a>
+                                    <p class="card-text">Price: ${{ product.price }}</p>
+                                    <a href="#" class="btn btn-primary">View Product</a>
                                 </div>
                             </div>
                         </div>

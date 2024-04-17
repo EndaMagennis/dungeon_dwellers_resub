@@ -37,7 +37,6 @@ class ProductAdmin(admin.ModelAdmin):
 class ProductImageAdmin(admin.ModelAdmin):
     list_display = (
         'product',
-        'image',
     )
     search_fields = ['product', 'image']
     ordering = ['product']

@@ -255,32 +255,20 @@ class Product(models.Model):
     
     def get_all_images(self):
         # Return all images of the product
-        return self.images.all()
+        images = ProductImage.objects.filter(product=self)
+        if images:
+            return images
+        return False
     
     def get_main_image(self):
         # The get_main_image method returns the main image of the product.
         images = ProductImage.objects.filter(product=self)
-        if images.exists():
-            default_image = images.filter(is_default=True)
-            if default_image.exists():
-                return default_image.first().image_url
-            return images.first().image_url
+        if images:
+            for image in images:
+                if image.is_default:
+                    return image
+            return images[0]
         return 'static/images/default_product.jpg'
-    
-    
-    def disable_fields_based_on_category(self):
-        # Disable fields based on the category of the product
-        if self.category:
-            if self.category.name == 'board_game':
-                self.has_dimensions = False
-                self.has_quantity = False
-            else:
-                self.has_dimensions = True
-                self.has_quantity = True
-        if not self.has_dimensions:
-            self.height = None
-        if  not self.has_quantity:
-            self.quantity = None
     
 
 class ProductImage(models.Model):
@@ -298,18 +286,6 @@ class ProductImage(models.Model):
         null=True,
         blank=True,
         default='static/images/default_product.jpg'
-    )
-    image_url = models.URLField(
-        max_length=1024,
-        null=True,
-        blank=True,
-        verbose_name='Image URL'
-    )
-    alt_text = models.CharField(
-        max_length=255,
-        null=True,
-        blank=True,
-        verbose_name='Alt Text'
     )
     is_default = models.BooleanField(#
         default=False,
@@ -329,13 +305,3 @@ class ProductImage(models.Model):
     def get_image(self):
         # Return the image of the product
         return self.image
-    
-    def get_alt_text(self):
-        # Return the alt text of the product
-        self.alt_text = self.product.name
-        return self.alt_text
-    
-    @property
-    def get_image_url(self):
-        # Return the URL of the image
-        return self.image.url
