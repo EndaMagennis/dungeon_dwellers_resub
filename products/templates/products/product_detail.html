@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_title %}Product Details{% endblock %}
+
+{% block page_header %}
+    <div class="row promotions-container text-center">
+        <a href="#">
+            <div class="col-12">
+                <h5 class="bg-warning">Check out our latest promotions!</h5>
+            </div>
+        </a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {{product.name}}
+    
+{% endblock %}

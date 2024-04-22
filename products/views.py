@@ -20,3 +20,16 @@ class ProductListView(View):
 
         return render(request, 'products/products_view.html', context)
 
+
+class ProductDetailView(View):
+    """A view of an individual product in more detail"""
+
+    def get(self, request, product_id, *args, **kwargs):
+
+        product = Product.objects.get(id=product_id)
+
+        context = {
+            'product': product
+        }
+
+        return render(request, 'products/product_detail.html', context)
