@@ -305,3 +305,9 @@ class ProductImage(models.Model):
     def get_image(self):
         # Return the image of the product
         return self.image
+
+    @property
+    def image_url(self):
+        if self.image:
+            return self.image.url
+        return False

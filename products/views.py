@@ -1,6 +1,6 @@
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Product, Category, Tag
+from .models import Product, Category, Tag, ProductImage
 
 
 class ProductListView(View):
@@ -26,10 +26,14 @@ class ProductDetailView(View):
 
     def get(self, request, product_id, *args, **kwargs):
 
-        product = Product.objects.get(id=product_id)
+        product = get_object_or_404(Product, id=product_id)
+        images = ProductImage.objects.filter(
+            product = product,
+        )
 
         context = {
-            'product': product
+            'product': product,
+            'images' : images
         }
 
         return render(request, 'products/product_detail.html', context)
