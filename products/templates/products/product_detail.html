@@ -15,7 +15,7 @@
 
 {% block content %}
     <div class="row my-3">
-        <div class="product-detail-container container-fluid">
+        <div class="product-detail-container container-fluid vh-100">
             <div class="row text-center">
                 <div class="col">
                     <h2>Product Details</h2>
@@ -47,13 +47,36 @@
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
-
                     {% else %}
                     <img src="{% static 'images/default_product.jpg' %}" class="card-img-top" alt="{{ product.name }}">
                     {% endif %}
                 </div>
-                <div class="col-8">
-
+                <div class="col-7 offset-1">
+                    <div class="details-container">
+                        <h3><strong>Product Name: </strong>{{ product.name }}</h3>
+                        <h4><strong>Price: </strong>€{{ product.price }}</h4>
+                        <div class="tags mb-1">
+                            <h4 class="d-inline"><strong>Tags: </strong></h4>
+                            {% for tag in product.tags.all %}
+                            <p class="d-inline small"><a href="">{{ tag }}</a> |</p>
+                            {% endfor %}
+                        </div>
+                        {% if product.has_quantity %}
+                        <h4><strong>QTY: </strong>{{ product.quantity }}pcs</h4>
+                        {% endif %}
+                        {% if product.has_dimensions %}
+                        <h4><strong>Height: </strong>{{ product.height }}cm</h4>
+                        {% endif %}
+                        <div class="product-blurb my-3">
+                            <h4>Description</h4>
+                            <hr>
+                            <p>{{ product.description|safe }}</p>
+                        </div>
+                        <div class="add-to-cart">
+                            <a href="" class="btn btn-outline-secondary">Add to Cart</a>
+                            <a href="{% url 'products' %}" class="btn btn-secondary">Continue Shopping</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
