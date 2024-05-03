@@ -282,14 +282,19 @@ class ProductImage(models.Model):
     )
     image = CloudinaryField(
         'product_images',
-        folder='product_images',
+        folder='dungeon_dwellers_products',
         null=True,
         blank=True,
-        default='static/images/default_product.jpg'
+        eager=[
+            {'width': '50', 'height': '50', 'crop':'crop'}
+        ],
+        transformation={
+            'width': '300', 'height': '300', 'crop':'fill' 
+        }
     )
-    is_default = models.BooleanField(#
+    is_default = models.BooleanField(
+        verbose_name='Is Default',
         default=False,
-        verbose_name='Is Default'
     )
 
     class Meta:
