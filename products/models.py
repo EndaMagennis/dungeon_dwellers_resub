@@ -289,7 +289,7 @@ class ProductImage(models.Model):
             {'width': '50', 'height': '50', 'crop':'crop'}
         ],
         transformation={
-            'width': '300', 'height': '300', 'crop':'fill' 
+            'width': '500', 'height': '500', 'crop':'fill' 
         }
     )
     is_default = models.BooleanField(

@@ -4,57 +4,53 @@
 {% block extra_title %}Products{% endblock %}
 
 {% block content %}
-
-<div class="row my-3">
-    <div class="products-container container-fluid text-light">
-        <div class="row">
-            <div class="col-12">
-                <h1 class="text-center">Our Products</h1>
-            </div>
+<div class="products-container text-light">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Our Products</h1>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <p class="text-center">Check out our selection of products!</p>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="text-center">Check out our selection of products!</p>
         </div>
-        <div class="row d-flex">
-            <div class="col-12">
-                <div class="row card-container text-center d-flex">
-                    {% if products %}
-                        {% for product in products %}
-                        <div class="card bg-dark text-light col-lg-3 col-md-5 col-12 m-3">
-                            <div class="product-image-container">
-                                {% if product.get_all_images %}
-                                    <a href="{% url 'product_detail' product.id %}">
-                                        <img src="{{ product.get_main_image.image.url }}" alt="{{ product.name }}" class="card-img-top img-fluid product-image">
-                                    </a>
-                                {% else %}
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="row card-container">
+                {% if products %}
+                    {% for product in products %}
+                    <div class="card bg-dark text-light col-lg-3 col-md-5 col-12">
+                        <div class="product-image-container p-0">
+                            {% if product.get_all_images %}
                                 <a href="{% url 'product_detail' product.id %}">
-                                    <img src="{% static 'images/default_product.jpg' %}" class="card-img-top img-fluid product-image" alt="{{ product.name }}">
+                                    <img src="{{ product.get_main_image.image.url }}" alt="{{ product.name }}" class="card-img-top img-fluid product-image">
                                 </a>
-                                {% endif %}
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5><hr>
-                                <p class="card-text">{{ product.description|safe|truncatewords:10 }}</p>
-                                <p class="card-text">Price: ${{ product.price }}</p>
-                                <div class="tags">
-                                {% for tag in product.tags.all %}
-                                    <p class="d-inline-block small text-light"><i class="fa-solid fa-tag fa-xs"></i><a href=""> {{ tag.friendly_name }}</a> |</p>
-                                {% endfor %}
-                                </div>
+                            {% else %}
+                            <a href="{% url 'product_detail' product.id %}">
+                                <img src="{% static 'images/default_product.jpg' %}" class="card-img-top img-fluid product-image" alt="{{ product.name }}">
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5><hr>
+                            <p class="card-text">{{ product.description|safe|truncatewords:10 }}</p>
+                            <p class="card-text">Price: ${{ product.price }}</p>
+                            <div class="tags">
+                            {% for tag in product.tags.all %}
+                                <p class="d-inline-block small text-light"><i class="fa-solid fa-tag fa-xs"></i><a href=""> {{ tag.friendly_name }}</a> |</p>
+                            {% endfor %}
                             </div>
                         </div>
-                        {% endfor %}
-                    {% else %}
-                    <div class="col-12">
-                        <p>No products found.</p>
                     </div>
-                    {% endif %}
+                    {% endfor %}
+                {% else %}
+                <div class="col-12">
+                    <p>No products found.</p>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
-    
 {% endblock %}

@@ -31,8 +31,8 @@
     {% endblock %}
 
 </head>
-<body class="w-100">
-    <header>
+<body>
+    <header class="w-100 nav-container">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'home' %}">Logo</a>
@@ -70,16 +70,21 @@
     </header>
 
     {% block page_header %}
+    <div class="row promotions-container text-center">
+        <a href="#">
+            <div class="col-12">
+                <h5 class="bg-warning">Check out our latest promotions!</h5>
+            </div>
+        </a>
+    </div>
     {% endblock %}
 
-    <main class="content-container container-fluid">
     {% block content %}
     {% endblock %}
-    </main>
 
-    <footer>
-        <p>&copy; 2020 Dungeon Dwellers</p>
-    </footer>
+    {% block footer %}
+    
+    {% endblock %}
 
     {% block postload_js %}
     {% endblock %}
