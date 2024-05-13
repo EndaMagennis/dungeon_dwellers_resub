@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="form-container container-fluid w-50 text-light p-3 bg-dark opacity-75 rounded-1">
+        <form class="from-control" method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in product_form %}
+                    {{ field | as_crispy_field }}
+                {% endfor %}
+        </form>
+    </div>
+    
+{% endblock %}

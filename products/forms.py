@@ -7,12 +7,12 @@ class ProductForm(ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
+        exclude = ('slug', 'created_at', 'updated_at', 'is_active', 'sku', 'rating')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['category'].queryset = Category.objects.all()
-        self.fields['tag'].queryset = Tag.objects.all()
-        self.fields['image'].queryset = ProductImage.objects.all()
+        self.fields['tags'].queryset = Tag.objects.all()
 
     def disable_fields_based_on_category(self, category):
         if category.name == 'board_game':
