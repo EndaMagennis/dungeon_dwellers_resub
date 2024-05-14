@@ -42,11 +42,30 @@ body {
 }
 
 .card {
+    border: 1px solid black;
+    background: linear-gradient(60deg, #360a0a98, #555);
     width: 300px;
-    margin: 2em;
+    margin: 1em;
+    padding: 1em;
+    color: antiquewhite;
+
+}
+
+.featured {
+    border: 1px solid gold;
+    background:
+    linear-gradient(
+        60deg, #84451467,
+            #c7801d60,
+            #ffe03379,
+            #c7801d54,
+            #84451462
+        );
 }
 
 /* --- Product Details View --- */
+
+
 
 .product-detail-container {
     display: flex;
@@ -81,7 +100,11 @@ body {
     object-fit: cover;
 }
 
-
+/*--- Modal ---*/
+.modal-content {
+    height: 800px;
+    overflow-y: scroll;
+}
 
 .call-to-action-container {
     display: flex;

@@ -268,7 +268,7 @@ class Product(models.Model):
                 if image.is_default:
                     return image
             return images[0]
-        return 'static/images/default_product.jpg'
+        return False
     
 
 class ProductImage(models.Model):

@@ -1,7 +1,8 @@
 from django.views import View
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Product, Category, Tag, ProductImage
-from .forms import ProductForm
+from .forms import ProductForm, ProductImageForm
+from django.contrib import messages
 
 
 class ProductListView(View):
@@ -48,8 +49,38 @@ class ProductDetailView(View):
 class ProductAddView(View):
 
     def get(self, request, *args, **kwargs):
+
+        if not request.user.is_superuser:
+            messages.error(request, 'Sorry, only store owners can do that.')
+            return redirect(reverse('home'))
+
         product_form = ProductForm()
         context = {
             'product_form': product_form,
         }
         return render(request, 'products/product_add.html', context)
+
+    def post(self, request, *args, **kwargs):
+        product_form = ProductForm(request.POST)
+        if product_form.is_valid():
+            product = product_form.save()
+            return redirect('products')
+        context = {
+            'product_form': product_form,
+        }
+        return render(request, 'products/products.html', context)
+
+
+class ProductImageAddView(View):
+
+    def get(self, request, *args, **kwargs):
+        
+        if not request.user.is_superuser:
+            messages.error(request, 'Sorry, only store owners can do that.')
+            return redirect(reverse('home'))
+
+        image_form = ProductImageForm()
+        context = {
+            'image_form': image_form
+        }
+        return render(request, 'products/product_image_add.html', context )

@@ -4,11 +4,10 @@
 
 {% block content %}
     <div class="form-container container-fluid w-50 text-light p-3 bg-dark opacity-75 rounded-1">
-        <form class="from-control" method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+        <form class="form-control product-form" method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data" id="product-form">
                 {% csrf_token %}
-                {% for field in product_form %}
-                    {{ field | as_crispy_field }}
-                {% endfor %}
+                {{ product_form | crispy }}
+                <button class="btn btn-outline-primary">Submit</button>
         </form>
     </div>
     
