@@ -7,6 +7,7 @@
         <form class="form-control product-form" method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data" id="product-form">
                 {% csrf_token %}
                 {{ product_form | crispy }}
+                {{ image_form | crispy }}
                 <button class="btn btn-outline-primary">Submit</button>
         </form>
     </div>

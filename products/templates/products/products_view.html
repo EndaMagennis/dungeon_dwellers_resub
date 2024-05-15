@@ -39,7 +39,7 @@
                                     <a href="{% url 'product_detail' product.id %}">
                                         <img src="{% static 'images/no-image-placeholder.png' %}" class="card-img-top img-fluid product-image" alt="{{ product.name }}">
                                     </a>
-                                    <a href="{% url 'add_image' %}" class="btn btn-outline-primary btn-sm m-1">Add Image</a>
+                                    <a href="" class="btn btn-outline-primary btn-sm m-1">Add Image</a>
                                 {% endif %}
                             {% else %}
                                 {% if product.get_all_images %}

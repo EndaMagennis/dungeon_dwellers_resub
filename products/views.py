@@ -54,33 +54,25 @@ class ProductAddView(View):
             messages.error(request, 'Sorry, only store owners can do that.')
             return redirect(reverse('home'))
 
-        product_form = ProductForm()
+        product_form = ProductForm(instance=ProductImage)
         context = {
             'product_form': product_form,
         }
         return render(request, 'products/product_add.html', context)
 
     def post(self, request, *args, **kwargs):
-        product_form = ProductForm(request.POST)
-        if product_form.is_valid():
-            product = product_form.save()
-            return redirect('products')
-        context = {
-            'product_form': product_form,
-        }
-        return render(request, 'products/products.html', context)
+        product_form = ProductForm(instance=ProductImage)
+        if request.method == 'POST':
 
-
-class ProductImageAddView(View):
-
-    def get(self, request, *args, **kwargs):
-        
-        if not request.user.is_superuser:
-            messages.error(request, 'Sorry, only store owners can do that.')
-            return redirect(reverse('home'))
-
-        image_form = ProductImageForm()
-        context = {
-            'image_form': image_form
-        }
-        return render(request, 'products/product_image_add.html', context )
+            product_form = ProductForm(request.POST)
+            images = request.FILES.getlist('images')
+            if product_form.is_valid():
+                product = product_form.save()
+                for i in images:
+                    ProductImage(product=product, image=i).save()
+                return redirect('products')
+            context = {
+                'product_form': product_form,
+            }
+            return render(request, 'products/products_view.html', context)
+        return redirect('products')
