@@ -1,5 +1,7 @@
 from django.views import View
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic.edit import DeleteView
 from .models import Product, Category, Tag, ProductImage
 from .forms import ProductForm
 from django.contrib import messages
@@ -73,5 +75,68 @@ class ProductAddView(View):
             context = {
                 'product_form': product_form,
             }
-            return render(request, 'products/products_add.html', context)
+            return render(request, 'products/product_add.html', context)
         return redirect('products')
+
+
+class ProductEditView(View):
+ 
+    def get(self, request, product_id, *args, **kwargs):
+        if not request.user.is_superuser:
+            messages.error(request, 'Sorry, only store owners can do that.')
+            return redirect(reverse('home'))
+        
+        product = get_object_or_404(Product, pk=product_id)
+        product_form = ProductForm(instance=product)
+
+        context = {
+            'product': product,
+            'product_form': product_form
+        }
+
+        return render(request, 'products/product_edit.html', context)
+
+
+    def post(self, request, product_id, *args, **kwargs):
+        if not request.user.is_superuser:
+            messages.error(request, 'Sorry, only store owners can do that.')
+            return redirect(reverse('home'))
+
+        product = get_object_or_404(Product, pk=product_id)
+        if request.method == 'POST':
+            product_form = ProductForm(request.POST, request.FILES, instance=product)
+            images = request.FILES.getlist('images')
+            if product_form.is_valid():
+                product = product_form.save()
+                for i in images:
+                    ProductImage(product=product, image=i).save()
+                messages.success(request, 'Successfully updated product!')
+                return redirect('products')
+            else:
+                messages.error(request, 'Failed to update product. Please ensure the form is valid.')
+        else:
+            product_form = ProductForm(instance=product)
+            context = {
+                'product_form': product_form,
+                'product': product,
+                'images': images
+            }
+            return render(request, 'products/product_edit.html', context)
+
+        return redirect('products')
+
+
+class ProductDeleteView(DeleteView):
+    """View for deleting a product"""
+    def get(self, request, product_id, *args, **kwargs):
+
+        if not request.user.is_superuser:
+            messages.error(request, 'Sorry, only store owners can do that.')
+            return redirect(reverse('home'))
+    
+        product = get_object_or_404(Product, pk=product_id)
+        product.delete()
+        messages.success(request, 'Product deleted!')
+        return redirect(reverse('products'))
+
+        return render(request, 'products/products_view.html')

@@ -101,10 +101,6 @@ body {
 }
 
 /*--- Modal ---*/
-.modal-content {
-    height: 800px;
-    overflow-y: scroll;
-}
 
 .call-to-action-container {
     display: flex;

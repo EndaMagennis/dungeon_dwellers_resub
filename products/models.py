@@ -267,7 +267,9 @@ class Product(models.Model):
             for image in images:
                 if image.is_default:
                     return image
-            return images[0]
+                else:
+                    default_image = images[0]
+                    return default_image
         return False
     
 
