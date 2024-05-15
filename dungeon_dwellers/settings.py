@@ -36,7 +36,8 @@ DEBUG = os.environ.get("DEBUG") == 'True'
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '.gitpod.io'
+    '.gitpod.io',
+    '.herokuapp.com'
 ]
 
 
@@ -113,7 +114,7 @@ DATABASES = {
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeanyapp.com",
     "https://*.herokuapp.com",
-    "https://*.gitpod.io"
+    "https://*.gitpod.io",
 ]
 
 
