@@ -29,7 +29,7 @@ class MultipleFileField(forms.FileField):
 
 class ProductForm(ModelForm):
     """Form for uploading new product"""
-    images = MultipleFileField()
+    images = MultipleFileField(required=False)
     class Meta:
         model = Product
         fields = '__all__'
@@ -43,15 +43,4 @@ class ProductForm(ModelForm):
         
         self.fields['category'].queryset = Category.objects.all()
         self.fields['tags'].queryset = Tag.objects.all()
-
-class ProductImageForm(ModelForm):
-    """Form for uploading product images"""
-
-    class Meta:
-        model = ProductImage
-        fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
         

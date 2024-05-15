@@ -1,7 +1,7 @@
 from django.views import View
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Product, Category, Tag, ProductImage
-from .forms import ProductForm, ProductImageForm
+from .forms import ProductForm
 from django.contrib import messages
 
 
@@ -63,7 +63,6 @@ class ProductAddView(View):
     def post(self, request, *args, **kwargs):
         product_form = ProductForm(instance=ProductImage)
         if request.method == 'POST':
-
             product_form = ProductForm(request.POST)
             images = request.FILES.getlist('images')
             if product_form.is_valid():
@@ -74,5 +73,5 @@ class ProductAddView(View):
             context = {
                 'product_form': product_form,
             }
-            return render(request, 'products/products_view.html', context)
+            return render(request, 'products/products_add.html', context)
         return redirect('products')
