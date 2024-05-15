@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background: url('../images/homepage_background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: calc(100vh - 164px);
+    color: #555;
+    font-family: 'Lato';
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+ /*--- From Bulma ---*/
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.home-content-container {
+    height: 100vh;
+}
+
+/*--- Products View ----*/
+
+.card-container {
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    width: 100%;
+}
+
+.card {
+    border: 1px solid black;
+    background: linear-gradient(60deg, #360a0a98, #555);
+    width: 300px;
+    margin: 1em;
+    padding: 1em;
+    color: antiquewhite;
+
+}
+
+.featured {
+    border: 1px solid gold;
+    background:
+    linear-gradient(
+        60deg, #84451467,
+            #c7801d60,
+            #ffe03379,
+            #c7801d54,
+            #84451462
+        );
+}
+
+/* --- Product Details View --- */
+
+
+
+.product-detail-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.product-image-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image-container img{
+    min-height: 300px;
+    object-fit: cover;
+}
+
+.details-container {
+    height: auto;
+    max-height: 800px;
+    margin: 2em;
+    padding: 1em;
+    overflow-y: auto;
+}
+
+.carousel-item {
+    max-height: 500px;
+    max-width: 500px;
+}
+
+.product-image {
+    object-fit: cover;
+}
+
+/*--- Modal ---*/
+
+.call-to-action-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-banner h1 {
+    font-size: 3rem;
+    color: #333;
+}
+/* Media queries */
+@media screen and (max-width: 770px) {
+    .card-container {
+        display: flex;
+        justify-content: center;
+        margin-left: 0;
+    }
+    
+    .card {
+        width: 300px;
+        align-self: center;
+        justify-self: center;
+    }
+    .product-image-container img {
+        max-height: 300px;
+    }
+    .details-container {
+        padding: 1em;
+        text-align: center;
+        margin-top: 1em;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .details-container {
+        padding: 1em;
+        text-align: center;
+        margin-top: 1em;
+        line-height: 1em;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .details-container div:last-of-type {
+        order: 1;
+    }
+
+    .details-container a {
+        margin: 1em;
+        order: 1;
+    }
+    .product-details-header h2{
+        width: 100%;
+    }
+}
