@@ -117,6 +117,10 @@ SITE_ID = 1
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
+SIGNUP_REDIRECT_URL= 'profile/<str:user>/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
 # Crispy forms

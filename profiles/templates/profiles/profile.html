@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block content %}
-    <div class="profile-container container-fluid my-3 d-flex row bg-body-tertiary opacity-75">
+    <div class="profile-container my-3 p-3 d-flex row bg-body-tertiary opacity-75">
         <div class="avatar-container col-3 m-2">
             {% if user.profile.avatar.url %}
-                <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }} profile picture" class="avatar img-fluid img-round">
+                <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}'s profile picture" class="avatar img-fluid img-round">
             {% else %}
-                <img src="{% static 'images/default_pfp.jpg' %}" alt=" profile picture" class="avatar img-fluid img-round">
+                <img src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }}'s profile picture" class="avatar img-fluid img-round">
             {% endif %}
-            <a href="" class="btn btn-outline-dark m-1" id="ajax-edit-avatar-btn"><i class="fa fa-camera"></i></a>
+            <a href="" class="btn btn-outline-dark btn-sm m-1" id="ajax-edit-avatar-btn"><i class="fa fa-camera"></i></a>
         </div>
 
         <div class="profile-info-container col-6 m-2 text-dark justify-content-start">
@@ -44,4 +44,47 @@
             
         </div>
     </div>
+{% endblock %}
+
+{% block postload_js %}
+    {{ block.super }}
+    <script>
+        $('#ajax-edit-avatar-btn').click(function(e) {
+            console.log("Hello")
+            e.preventDefault();
+            let fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*';
+            fileInput.click();
+            $(fileInput).change(function() {
+                let file = fileInput.files[0];
+                file.value = '';
+                let currentUrl = $('img.avatar').attr('src');
+                let editbtn = $('#ajax-edit-avatar-btn');
+                $('.avatar').attr('src', URL.createObjectURL(file));
+                let savebtn = $('<button id="save-avatar-btn" class="btn btn-outline-primary">Save</button>');
+                $('#ajax-edit-avatar-btn').replaceWith(savebtn);
+                $('#save-avatar-btn').click(function() {
+                    let formData = new FormData();
+                    formData.append('avatar', file);
+                    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+                    $.ajax({
+                        type: 'POST',
+                        url: "{% url 'edit_avatar' %}",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            $('.avatar').attr('src', data.url);
+                            $('#save-avatar-btn').replaceWith(editbtn);
+                        },
+                        error: function(error) {
+                            $('.avatar').attr('src', currentUrl);
+                            $('#save-avatar-btn').replaceWith(editbtn);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 {% endblock %}

@@ -28,11 +28,13 @@ body {
     width: 1.5rem;
 }
 
-.avatar {
-    height: 300px;
-    width: 300px;
-    border-radius: 50%;
+.avatar-container {
+    max-height: 300px;
+    max-width: 300px;
+}
 
+.avatar{
+    border-radius: 50%;
 }
 
 .home-content-container {
