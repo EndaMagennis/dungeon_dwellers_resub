@@ -2,7 +2,46 @@
 {% load static %}
 
 {% block content %}
-    <div class="profile-container container-fluid my-3">
-        {{ profile.name }}
+    <div class="profile-container container-fluid my-3 d-flex row bg-body-tertiary opacity-75">
+        <div class="avatar-container col-3 m-2">
+            {% if user.profile.avatar.url %}
+                <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }} profile picture" class="avatar img-fluid img-round">
+            {% else %}
+                <img src="{% static 'images/default_pfp.jpg' %}" alt=" profile picture" class="avatar img-fluid img-round">
+            {% endif %}
+            <a href="" class="btn btn-outline-dark m-1" id="ajax-edit-avatar-btn"><i class="fa fa-camera"></i></a>
+        </div>
+
+        <div class="profile-info-container col-6 m-2 text-dark justify-content-start">
+            {% if user.profile.first_name and user.profile.last_name %}
+                <h2>{{ user.profile.first_name }} {{ user.profile.last_name }}</h2>
+            {% elif user.profile.first_name %}
+                <h2>{{ user.profile.first_name }}</h2>
+            {% else %}
+                <h2>{{ user.username }}</h2>
+            {% endif %}
+
+            <h3 class="d-inline">E-mail: </h3>
+            <h4 class="d-inline">{{ user.email }}</h4>
+
+            <div class="address-container">
+                <h3 class="d-inline">Address: </h3>
+                {% if addresses %}
+                    {% if default_address %}
+                        {% for field in default_address %}
+                            <h5 class="d-inline">{{ field.address_line_1 }}</h5>
+                            <h5 class="d-inline">{{ field.country.name }}<h5>
+                            <h5 class="d-inline">{{ field.post_code }}</h5>
+                        {% endfor %}
+                    {% else %}
+                        <h5 class="d-inline">No default address</h5>
+                    {% endif %}
+                {% else %}
+                    <h5 class="d-inline">No addresses</h5>
+                    <a href="#" class="btn btn-sm btn-outline-dark"><i class="fa-solid fa-plus"></i></a>
+                {% endif %}
+            </div>
+            
+        </div>
     </div>
 {% endblock %}

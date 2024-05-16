@@ -30,6 +30,12 @@ class Profile(models.Model):
         folder='dungeon_avatars',
         blank=True,
         null=True,
+        eager=[
+            {'width': '50', 'height': '50', 'crop':'crop'}
+        ],
+        transformation={
+            'width': '500', 'height': '500', 'crop':'fill' 
+        }
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -46,6 +52,9 @@ class Profile(models.Model):
         if self.first_name:
             return self.first_name
         return self.user.username
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
     
     @property
     def avatar_url(self):

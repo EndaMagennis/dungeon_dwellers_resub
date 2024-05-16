@@ -28,6 +28,13 @@ body {
     width: 1.5rem;
 }
 
+.avatar {
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+
+}
+
 .home-content-container {
     height: 100vh;
 }
