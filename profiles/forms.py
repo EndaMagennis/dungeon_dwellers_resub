@@ -12,6 +12,7 @@ class ProfileForm(forms.ModelForm):
             'first_name': 'First Name',
             'last_name': 'Last Name',
         }
+        
         exclude = ('user', 'created_at', 'updated_at')
 
     def __init__(self, *args, **kwargs):

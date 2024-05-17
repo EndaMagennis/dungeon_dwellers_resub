@@ -4,7 +4,7 @@ from .models import Profile, Address
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'first_name', 'last_name', 'created_at')
+    list_display = ('id', 'user', 'first_name', 'last_name', 'created_at')
     search_fields = ('user__username', 'first_name', 'last_name')
     ordering = ('user',)
     list_filter = ('created_at', 'updated_at')

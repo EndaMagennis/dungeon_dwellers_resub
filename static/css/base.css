@@ -54,6 +54,7 @@ body {
     border: 1px solid black;
     background: linear-gradient(60deg, #360a0a98, #555);
     width: 300px;
+    min-height: 500px;
     margin: 1em;
     padding: 1em;
     color: antiquewhite;

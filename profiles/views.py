@@ -44,26 +44,33 @@ class EditAvatarAjaxView(View):
 class ProfileUpdateView(View):
     """View for updating user profile"""
     def get(self, request, *args, **kwargs):
-        avatar = request.user.profile.avatar
         profile = get_object_or_404(Profile, user=request.user)
         profile_form = ProfileForm(instance=profile)
+
+        address_form = AddressForm()
         context = {
             'profile_form': profile_form,
-            'avatar': avatar,
+            'address_form': address_form,
         }
         return render(request, 'profiles/update_profile.html', context)
     
     def post(self, request, *args, **kwargs):
         profile = get_object_or_404(Profile, user=request.user)
-        avatar = profile.avatar
         profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
-        if profile_form.is_valid():
+
+        address_form = AddressForm(request.POST)
+
+        if profile_form.is_valid() and address_form.is_valid():
+            address = address_form.save(commit=False)
+            address.user = request.user
+            address.save()
             profile_form.save()
             messages.success(request, 'Profile updated successfully')
+            messages.success(request, 'Address created successfully')
             return redirect(reverse('profile', args=[request.user.username]))
         context = {
-            'profile_form': profile_form,
-            'avatar': avatar,
+            'profile': profile,
+            'address': address
         }
         return render(request, 'profiles/profile.html', context)
     

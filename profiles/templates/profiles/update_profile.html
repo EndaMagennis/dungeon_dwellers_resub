@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="profile-form-conatainer w-75 my-5 d-flex justify-content-center text-light">
+        <div class="form-header row w-100 text-light">
+            <h2 class="col-12">Update Profile</h2>
+        </div>
+        <div class="form-content w-100 row">
+            <form action="{% url 'update_profile' user=request.user %}" method="POST" class="form col-12">
+                {% csrf_token %}
+                <table>
+                    {{ profile_form | crispy }}
+                    {{ address_form | crispy }}
+                </table>
+                <br>
+                <button type="submit" class="btn btn-outline-light">Save</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

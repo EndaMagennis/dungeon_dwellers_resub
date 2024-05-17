@@ -14,15 +14,21 @@
 
         <div class="profile-info-container col-6 m-2 text-dark justify-content-start">
             {% if user.profile.first_name and user.profile.last_name %}
-                <h2>{{ user.profile.first_name }} {{ user.profile.last_name }}</h2>
+                <h2 class="d-inline">{{ user.profile.first_name }} {{ user.profile.last_name }}</h2>
+                <a href="{% url 'update_profile' user=request.user %}" class="btn btn-sm btn-outline-dark"><i class="fa-solid fa-plus"></i></a>
+
             {% elif user.profile.first_name %}
-                <h2>{{ user.profile.first_name }}</h2>
+                <h2 class="d-inline">{{ user.profile.first_name }}</h2>
+                <a href="{% url 'update_profile' user=request.user %}" class="btn btn-sm btn-outline-dark"><i class="fa-solid fa-plus"></i></a>
+
             {% else %}
-                <h2>{{ user.username }}</h2>
+                <h2 class="d-inline">{{ user.username }}</h2>
+                <a href="{% url 'update_profile' user=request.user %}" class="btn btn-sm btn-outline-dark"><i class="fa-solid fa-plus"></i></a>
             {% endif %}
 
-            <h3 class="d-inline">E-mail: </h3>
+            <h3>E-mail: </h3>
             <h4 class="d-inline">{{ user.email }}</h4>
+            
 
             <div class="address-container">
                 <h3 class="d-inline">Address: </h3>
