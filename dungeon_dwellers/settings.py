@@ -57,8 +57,9 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'django_summernote',
-    "crispy_forms",
-    "crispy_bootstrap5",
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'bag',
     'home',
     'products',
     'profiles',
@@ -89,6 +90,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                'bag.contexts.bag_contents',
             ],
              'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
@@ -97,9 +100,6 @@ TEMPLATES = [
         },
     },
 ]
-
-
-
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -206,5 +206,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+
+FREE_DELIVERY_THRESHOLD = 50
+STANDARD_DELIVERY_PERCENTAGE = 10
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
