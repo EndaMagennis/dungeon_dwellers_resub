@@ -173,9 +173,9 @@ class Product(models.Model):
         default=False,
         verbose_name='Has Dimensions'
     )
-    has_quantity = models.BooleanField(
+    has_amount = models.BooleanField(
         default=False,
-        verbose_name='Has Quantity'
+        verbose_name='Has Amount'
     )
     height = models.DecimalField(
         max_digits=6,
@@ -185,14 +185,14 @@ class Product(models.Model):
         verbose_name='Height',
         help_text='Height in cm'
     )
-    quantity = models.IntegerField(
+    amount = models.IntegerField(
         validators=[
             MinValueValidator(2),
             MaxValueValidator(100),
         ],
         null=True,
         blank=True,
-        verbose_name='Quantity'
+        verbose_name='Amount'
     )
     rating = models.DecimalField(
         max_digits=3,

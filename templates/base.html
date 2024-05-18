@@ -41,7 +41,7 @@
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav my-auto mb-2 mb-lg-0">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'profile' user=request.user %}">My Profile</a>
@@ -84,7 +84,7 @@
         </nav>
     </header>
 
-    <!-- {% if messages %}
+    {% if messages %}
         <div class="message-container">
             {% for message in messages %}
                 {% with message.level as level %}
@@ -100,7 +100,7 @@
                 {% endwith %}
             {% endfor %}
         </div>
-    {% endif %} -->
+    {% endif %}
 
     {% endblock %}
 
@@ -121,7 +121,7 @@
     
     {% endblock %}
 
-    {% block postload_js %}
+    {% block postloadjs %}
     <script type="text/javascript">
         $('.toast').toast('show');
     </script>

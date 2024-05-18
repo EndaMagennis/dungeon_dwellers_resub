@@ -49,8 +49,8 @@
                         <p class="d-inline-block small text-light"><i class="fa-solid fa-tag fa-xs text-primary"></i><a href=""> {{ tag.friendly_name }}</a> |</p>
                     {% endfor %}
                 </div>
-                {% if product.has_quantity %}
-                <h4><strong>QTY: </strong>{{ product.quantity }}pcs</h4>
+                {% if product.has_amount %}
+                <h4><strong>QTY: </strong>{{ product.amount }}pcs</h4>
                 {% endif %}
                 {% if product.has_dimensions %}
                 <h4><strong>Height: </strong>{{ product.height }}cm</h4>
@@ -61,7 +61,14 @@
                     <p>{{ product.description|safe }}</p>
                 </div>
                 <div class="add-to-cart">
-                    <a href="" class="btn btn-outline-secondary">Add to Cart</a>
+                    <div class="row">
+                        <form method="POST" action="{% url 'add_to_bag' product.id %} " class="col-6">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <button type="submit" class="btn btn-outline-light rounded-0">Add to Bag</button>
+                            </div>
+                        </form>
+                    </div>
                     <a href="{% url 'products' %}" class="btn btn-secondary">Continue Shopping</a>
                 </div>
             </div>
