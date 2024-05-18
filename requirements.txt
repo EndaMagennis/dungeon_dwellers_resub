@@ -9,5 +9,6 @@ django-crispy-forms==2.1
 django-summernote==0.8.20.0
 gunicorn==22.0.0
 sqlparse==0.5.0
+stripe==9.7.0
 tzdata==2024.1
 whitenoise==6.6.0
