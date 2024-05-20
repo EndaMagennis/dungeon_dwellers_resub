@@ -59,6 +59,7 @@ class Tag(models.Model):
     def __str__(self):
         # Return the name of the tag
         return self.name
+
     
     def get_friendly_name(self):
         # Return the friendly name of the tag
@@ -95,7 +96,8 @@ class Product(models.Model):
         'Tag',
         blank=True,
         verbose_name='Tags',
-        related_name='products'
+        related_name='products',
+        help_text= 'Hold "Crtl" while clicking select multiple tags'
     )
     name = models.CharField(
         max_length=255,
@@ -161,7 +163,6 @@ class Product(models.Model):
         blank=True,
         verbose_name='Play Time',
         default=PlayTime.SHORT,
-        help_text='Average play time in minutes'
     )
     publisher = models.CharField(
         max_length=255,
@@ -183,7 +184,7 @@ class Product(models.Model):
         null=True,
         blank=True,
         verbose_name='Height',
-        help_text='Height in cm'
+        help_text='Height in mm'
     )
     amount = models.IntegerField(
         validators=[
@@ -192,7 +193,8 @@ class Product(models.Model):
         ],
         null=True,
         blank=True,
-        verbose_name='Amount'
+        verbose_name='Amount',
+        help_text='For number of pcs in a set'
     )
     rating = models.DecimalField(
         max_digits=3,
@@ -217,7 +219,8 @@ class Product(models.Model):
     )
     is_featured = models.BooleanField(
         default=False,
-        verbose_name='Is Featured'
+        verbose_name='Is Featured',
+        help_text='This will add styling to highlight the product on the page'
     )
     is_active = models.BooleanField(
         default=True,

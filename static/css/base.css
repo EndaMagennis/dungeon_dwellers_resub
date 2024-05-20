@@ -141,6 +141,16 @@ body {
     z-index: 99999999999;
 }
 
+.overlay {
+    height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	background: rgba(255, 248, 248);
+	z-index: -1;
+}
+
 .custom-toast {
     overflow: visible;
 }

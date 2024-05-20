@@ -1,6 +1,7 @@
 from django.views import View
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
+from django.db.models import Q
 from django.views.generic.edit import DeleteView
 from .models import Product, Category, Tag, ProductImage
 from .forms import ProductForm
@@ -17,6 +18,22 @@ class ProductListView(View):
         tags = Tag.objects.all()
 
         template = 'products/products_view.html'
+
+        if request.GET:
+            query = request.GET.get('search-input')
+            if query:
+                products = Product.objects.filter(
+                    Q(name__icontains=query) |
+                    Q(category__friendly_name__icontains=query) |
+                    Q(tags__friendly_name__icontains=query)
+                ).distinct()
+                
+                context = {
+                    'products': products,
+                    'categories': categories,
+                    'tags': tags,
+                    'query': query,
+                }
 
         context = {
             'products': products,
@@ -56,7 +73,8 @@ class ProductAddView(View):
             messages.error(request, 'Sorry, only store owners can do that.')
             return redirect(reverse('home'))
 
-        product_form = ProductForm(instance=ProductImage)
+        product_form = ProductForm()
+
         context = {
             'product_form': product_form,
         }

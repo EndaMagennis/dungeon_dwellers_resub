@@ -59,7 +59,10 @@
                             <p class="card-text">Price: ${{ product.price }}</p>
                             <div class="tags">
                             {% for tag in product.tags.all %}
-                                <p class="d-inline-block small text-light"><i class="fa-solid fa-tag fa-xs"></i><a href=""> {{ tag.friendly_name }}</a> |</p>
+                            <form class="d-flex" role="search" method="GET">
+                                {% csrf_token %}
+                                <input class="tag-button btn btn-sm btn-outline-primary" type="submit" placeholder="Search" aria-label="Search" name="search-input" value="{{ tag.friendly_name }}">
+                            </form>
                             {% endfor %}
                             </div>
                         </div>

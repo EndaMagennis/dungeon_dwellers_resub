@@ -29,7 +29,10 @@ class MultipleFileField(forms.FileField):
 
 class ProductForm(ModelForm):
     """Form for uploading new product"""
-    images = MultipleFileField(required=False)
+    images = MultipleFileField(
+        required=False, 
+        help_text= 'Hold "Ctrl" while clicking to select mulitple images'
+    )
     class Meta:
         model = Product
         fields = '__all__'
@@ -38,9 +41,10 @@ class ProductForm(ModelForm):
             'images': MultipleFileField()
         }
 
+    field_order = ['name', 'images', 'category', 'tags', 'description', ...]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        self.fields['category'].queryset = Category.objects.all()
-        self.fields['tags'].queryset = Tag.objects.all()
-        
+        categories = self.fields['category'].queryset = Category.objects.all()
+        tags = self.fields['tags'].queryset = Tag.objects.all()
