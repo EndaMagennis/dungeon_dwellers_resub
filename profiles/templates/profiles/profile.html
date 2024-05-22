@@ -35,16 +35,13 @@
                 {% if addresses %}
                     {% if default_address %}
                         {% for field in default_address %}
-                            <h5 class="d-inline">{{ field.address_line_1 }}</h5>
-                            <h5 class="d-inline">{{ field.country.name }}<h5>
-                            <h5 class="d-inline">{{ field.post_code }}</h5>
+                            <h5 class="d-inline">{{ field }}</h5>
                         {% endfor %}
                     {% else %}
                         <h5 class="d-inline">No default address</h5>
                     {% endif %}
                 {% else %}
                     <h5 class="d-inline">No addresses</h5>
-                    <a href="#" class="btn btn-sm btn-outline-dark"><i class="fa-solid fa-plus"></i></a>
                 {% endif %}
             </div>
             

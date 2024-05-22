@@ -28,6 +28,12 @@ body {
     width: 1.5rem;
 }
 
+.profile-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
 .avatar-container {
     max-height: 300px;
     max-width: 300px;

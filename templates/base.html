@@ -80,12 +80,20 @@
                             </div>
                         </a>
                     </li>
+
+                    <li class="list-inline-item">
+                        <form class="d-flex" role="search">
+                            {% csrf_token %}
+                            <input class="form-control me-2" name="search-input" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-link">
+                        <a href="{% url 'profile' user=request.user %}"><img class="profile-icon" src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar"></a>
+                    </li>
+                    {% endif %}
                 </ul>
-                <form class="d-flex" role="search">
-                    {% csrf_token %}
-                    <input class="form-control me-2" name="search-input" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
                 </div>
             </div>
         </nav>
