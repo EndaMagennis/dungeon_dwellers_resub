@@ -5,6 +5,7 @@
     {% block meta %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <title>Dungeon Dwellers | {% block extra_title %} {% endblock %}</title>
     {% endblock %}
 
@@ -13,6 +14,9 @@
         rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
         crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
+    {% endblock %}
+
+    {% block extra_css %}
     {% endblock %}
 
     {% block js %}
@@ -124,9 +128,11 @@
     
     {% endblock %}
 
-    {% block postloadjs %}
-    <script type="text/javascript">
-        $('.toast').toast('show');
+    {% block postload_js %}
+    <script>
+        $(document).ready(function(){
+            $('.toast').toast('show');
+        })
     </script>
     {% endblock %}
 </body>

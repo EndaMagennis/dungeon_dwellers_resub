@@ -29,6 +29,10 @@ class Category(models.Model):
     def __str__(self):
         # Return the name of the category
         return self.name
+    
+    def generate_friendly_name(self):
+        # remove underscores and replace with spaces
+        return self.name.replace('_', ' ').title()
 
     def get_friendly_name(self):
         # Return the friendly name of the category
@@ -60,6 +64,9 @@ class Tag(models.Model):
         # Return the name of the tag
         return self.name
 
+    def generate_friendly_name(self):
+        # remove underscores and replace with spaces
+        return self.name.replace('_', ' ').title()
     
     def get_friendly_name(self):
         # Return the friendly name of the tag

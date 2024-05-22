@@ -38,7 +38,11 @@ class ProductForm(ModelForm):
         fields = '__all__'
         exclude = ('slug', 'created_at', 'updated_at', 'is_active', 'sku', 'rating')
         widgets = {
-            'images': MultipleFileField()
+            'images': MultipleFileField(),
+            'description': forms.Textarea(attrs={'rows': 5, 'cols': 15}),
+            'is_featured': forms.CheckboxInput(),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+            'tags': forms.SelectMultiple(attrs={'class': 'form-control'}),
         }
 
     field_order = ['name', 'images', 'category', 'tags', 'description', ...]

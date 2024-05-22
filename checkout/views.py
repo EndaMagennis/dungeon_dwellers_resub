@@ -6,7 +6,7 @@ from django.conf import settings
 from .forms import OrderForm
 from .models import Order, OrderLineItem
 from products.models import Product
-from profiles.models import Profile
+from profiles.models import Profile, Address
 from profiles.forms import ProfileForm
 from bag.contexts import bag_contents
 
@@ -117,7 +117,7 @@ def checkout(request):
                     'address_line_2': address.address_line_2,
                     'county': address.county,
                 })
-            except UserProfile.DoesNotExist:
+            except Profile.DoesNotExist:
                 order_form = OrderForm()
         else:
             order_form = OrderForm()
@@ -144,9 +144,9 @@ def checkout_success(request, order_number):
     order = get_object_or_404(Order, order_number=order_number)
 
     if request.user.is_authenticated:
-        profile = UserProfile.objects.get(user=request.user)
+        profile = Profile.objects.get(user=request.user)
         # Attach the user's profile to the order
-        order.user_profile = profile
+        order.profile = profile
         order.save()
 
         # Save the user's info

@@ -9,7 +9,7 @@
             {% else %}
                 <img src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }}'s profile picture" class="avatar img-fluid img-round">
             {% endif %}
-            <a href="" class="btn btn-outline-dark btn-sm m-1" id="ajax-edit-avatar-btn"><i class="fa fa-camera"></i></a>
+            <a href="#" class="btn btn-outline-dark btn-sm m-1" id="ajax-edit-avatar-btn"><i class="fa fa-camera"></i></a>
         </div>
 
         <div class="profile-info-container col-6 m-2 text-dark justify-content-start">
@@ -53,10 +53,9 @@
 {% endblock %}
 
 {% block postload_js %}
-    {{ block.super }}
+{{ block.super }}
     <script>
         $('#ajax-edit-avatar-btn').click(function(e) {
-            console.log("Hello")
             e.preventDefault();
             let fileInput = document.createElement('input');
             fileInput.type = 'file';

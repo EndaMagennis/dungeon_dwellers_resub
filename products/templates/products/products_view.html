@@ -57,9 +57,9 @@
                             <h5 class="card-title">{{ product.name }}</h5><hr>
                             <p class="card-text">{{ product.description|safe|truncatewords:10 }}</p>
                             <p class="card-text">Price: ${{ product.price }}</p>
-                            <div class="tags">
+                            <div class="tags row m-0">
                             {% for tag in product.tags.all %}
-                            <form class="d-flex" role="search" method="GET">
+                            <form class="col m-0 small" role="search" method="GET">
                                 {% csrf_token %}
                                 <input class="tag-button btn btn-sm btn-outline-primary" type="submit" placeholder="Search" aria-label="Search" name="search-input" value="{{ tag.friendly_name }}">
                             </form>
