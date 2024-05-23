@@ -7,7 +7,7 @@ from .forms import OrderForm
 from .models import Order, OrderLineItem
 from products.models import Product
 from profiles.models import Profile, Address
-from profiles.forms import ProfileForm
+from profiles.forms import ProfileForm, AddressForm
 from bag.contexts import bag_contents
 
 import stripe
@@ -105,7 +105,7 @@ def checkout(request):
         if request.user.is_authenticated:
             try:
                 profile = Profile.objects.get(user=request.user)
-                address = Address.objects.get(user=request.user)
+                address = Address.objects.get(user=request.user, is_default=True)
                 order_form = OrderForm(initial={
                     'full_name': profile.user.get_full_name(),
                     'email': profile.user.email,
@@ -145,13 +145,14 @@ def checkout_success(request, order_number):
 
     if request.user.is_authenticated:
         profile = Profile.objects.get(user=request.user)
+        address = Address.objects.get(user=request.user, is_default=True)
         # Attach the user's profile to the order
         order.profile = profile
         order.save()
 
         # Save the user's info
         if save_info:
-            profile_data = {
+            data = {
                 'phone_number': order.phone_number,
                 'country': order.country,
                 'post_code': order.post_code,
@@ -160,9 +161,13 @@ def checkout_success(request, order_number):
                 'address_line_2': order.address_line_2,
                 'county': order.county,
             }
-            user_profile_form = ProfileForm(profile_data, instance=profile)
-            if user_profile_form.is_valid():
-                user_profile_form.save()
+            user_address_form = AddressForm(data, instance=address)
+            if user_address_form.is_valid():
+                updated_address = user_address_form.save(commit=False)
+                print(updated_address)
+                updated_address.is_default=True
+                updated_address.save()
+
 
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
