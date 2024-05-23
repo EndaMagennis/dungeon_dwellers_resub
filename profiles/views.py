@@ -96,3 +96,4 @@ class AddressCreateView(View):
             'form': form,
         }
         return render(request, 'profiles/profile.html', context)
+        

@@ -105,6 +105,8 @@ class Address(models.Model):
     post_code = models.CharField(
         max_length=10,
         verbose_name='Post Code',
+        null=True,
+        blank=True,
     )
     phone_number = models.CharField(
         max_length=20,

@@ -199,6 +199,7 @@ class ProductDeleteView(DeleteView):
 
         return render(request, 'products/products_view.html')
 
+
 class ProductImageAddView(View):
 
     def get(self, request, product_id, *args, **kwargs):
