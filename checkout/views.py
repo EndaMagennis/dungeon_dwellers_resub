@@ -119,6 +119,8 @@ def checkout(request):
                 })
             except Profile.DoesNotExist:
                 order_form = OrderForm()
+            except Address.DoesNotExist:
+                order_form = OrderForm()
         else:
             order_form = OrderForm()
 
