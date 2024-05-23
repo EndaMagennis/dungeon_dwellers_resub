@@ -45,9 +45,10 @@ class ProfileUpdateView(View):
     """View for updating user profile"""
     def get(self, request, *args, **kwargs):
         profile = get_object_or_404(Profile, user=request.user)
+        address = get_object_or_404(Address, user=request.user, is_default=True)
         profile_form = ProfileForm(instance=profile)
 
-        address_form = AddressForm()
+        address_form = AddressForm(instance=address)
         context = {
             'profile_form': profile_form,
             'address_form': address_form,

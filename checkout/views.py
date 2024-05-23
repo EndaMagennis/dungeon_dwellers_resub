@@ -55,6 +55,7 @@ def checkout(request):
             order.stripe_pid = pid
             order.original_bag = json.dumps(bag)
             order.save()
+
             for item_id, item_data in bag.items():
                 try:
                     product = Product.objects.get(id=item_id)
@@ -166,7 +167,6 @@ def checkout_success(request, order_number):
             user_address_form = AddressForm(data, instance=address)
             if user_address_form.is_valid():
                 updated_address = user_address_form.save(commit=False)
-                print(updated_address)
                 updated_address.is_default=True
                 updated_address.save()
 

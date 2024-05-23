@@ -39,9 +39,6 @@
                                     <a href="{% url 'product_detail' product.id %}">
                                         <img src="{% static 'images/no-image-placeholder.png' %}"  class="card-img-top img-fluid product-image" alt="{{ product.name }}">
                                     </a>
-                                    <a href="{% url 'add_product_image' product.id %}" class="d-block btn btn-secondary btn-sm m-2 product-add-image" data-id="product-{{ product.id }}" id="ajax-product-add-image">
-                                        <i class="fa-regular fa-image"></i>
-                                    </a>
                                 {% endif %}
                             {% else %}
                                 {% if product.get_all_images %}

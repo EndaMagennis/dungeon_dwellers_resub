@@ -19,7 +19,11 @@
             {% for item in bag_items %}
                 <tr>
                     <td class="thumbnail">
-                        <img src="{{ item.product.get_main_image.image_url }}" alt="{{ item.product.name }}" class="img-fluid">
+                        {% if item.product.get_all_images %}
+                            <img src="{{ item.product.get_main_image.image_url }}" alt="{{ item.product.name }}" class="img-fluid">
+                        {% else %}
+                            <img src="{% static 'images/no-image-placeholder.png' %}" alt="{{ item.product.name }}" class="img-fluid">
+                        {% endif %}
                     </td>
                     <td class="py-3">
                         <p class="my-0"><strong>{{ item.product.name }}</strong></p>

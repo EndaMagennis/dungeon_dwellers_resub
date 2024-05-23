@@ -2,6 +2,7 @@ from django.forms import ModelForm
 from django.forms import forms
 from django.forms import ClearableFileInput
 from cloudinary.models import CloudinaryField
+from django_summernote.fields import SummernoteTextFormField, SummernoteTextField
 
 
 from .models import Product, Category, Tag, ProductImage
@@ -39,7 +40,6 @@ class ProductForm(ModelForm):
         exclude = ('slug', 'created_at', 'updated_at', 'is_active', 'sku', 'rating')
         widgets = {
             'images': MultipleFileField(),
-            'description': forms.Textarea(attrs={'rows': 5, 'cols': 15}),
             'is_featured': forms.CheckboxInput(),
             'category': forms.Select(attrs={'class': 'form-control'}),
             'tags': forms.SelectMultiple(attrs={'class': 'form-control'}),
@@ -50,5 +50,6 @@ class ProductForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
+        self.fields['description'] = SummernoteTextFormField()
         categories = self.fields['category'].queryset = Category.objects.all()
         tags = self.fields['tags'].queryset = Tag.objects.all()

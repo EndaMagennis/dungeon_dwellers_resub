@@ -2,21 +2,19 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block page_header %}
+    <div class="my-3 edit-header-container text-center text-light">
+        <h2>Add a New Product</h2>
+    </div>
+{% endblock %}
+
 {% block content %}
-    <div class="overlay"></div>
     <div class="form-container container-fluid w-50 text-light p-3 bg-dark opacity-75 rounded-1">
-        <div class="form-header d-flex align-content-center justify-content-center">
-            <h2>Add a New Product</h2>
-        </div>
         <form class="form-control product-form" method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data" id="product-form">
                 {% csrf_token %}
-                    {% for field in product_form %}
-                        <div class="form-control-item">
-                            {{ field | as_crispy_field }}
-                        </div>
-                    {% endfor %}
+                {{ product_form | crispy }}
                 <button class="btn btn-outline-primary">Submit</button>
+                <a href="{% url 'products' %}" class="btn btn-outline-secondary">Back To Products</a>
         </form>
     </div>
-    
 {% endblock %}

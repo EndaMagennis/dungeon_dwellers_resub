@@ -47,7 +47,7 @@
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav my-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav my-auto mb-2 mb-lg-0 align-items-center w-100">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'profile' user=request.user %}">My Profile</a>
@@ -80,27 +80,30 @@
                             </div>
                         </a>
                     </li>
-                    <li class="list-inline-item">
-                        <form class="d-flex" role="search">
-                            {% csrf_token %}
-                            <input class="form-control me-2" name="search-input" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                    </li>
-                    {% if user.is_authenticated %}
-                        {% if user.profile.avatar %}
-                            <li class="nav-link">
-                                <a href="{% url 'profile' user=request.user %}"><img class="profile-icon" src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar"></a>
-                            </li>
-                        {% else %}
-                        <li class="nav-link">
-                            <a href="{% url 'profile' user=request.user %}"><img class="profile-icon" src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }} avatar"></a>
-                        </li>
-                        {% endif %}
-                    {% endif %}
+                        
                 </ul>
                 </div>
             </div>
+            <form class="d-flex" role="search">
+                {% csrf_token %}
+                <input class="form-control me-2" name="search-input" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            {% if user.is_authenticated %}
+                        {% if user.profile.avatar %}
+                        <div class="justify-self-end mx-5">
+                            <li class="nav-link">
+                                <a href="{% url 'profile' user=request.user %}"><img class="profile-icon justify-self-end" src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar"></a>
+                            </li>
+                        </div>
+                        {% else %}
+                        <div class="justify-self-end mx-5">
+                            <li class="nav-link">
+                                <a href="{% url 'profile' user=request.user %}"><img class="profile-icon justify-self-end" src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }} avatar"></a>
+                            </li>
+                        </div>
+                        {% endif %}
+                    {% endif %}
         </nav>
     </header>
 
