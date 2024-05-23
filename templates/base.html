@@ -88,9 +88,15 @@
                         </form>
                     </li>
                     {% if user.is_authenticated %}
-                    <li class="nav-link">
-                        <a href="{% url 'profile' user=request.user %}"><img class="profile-icon" src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar"></a>
-                    </li>
+                        {% if user.profile.avatar %}
+                            <li class="nav-link">
+                                <a href="{% url 'profile' user=request.user %}"><img class="profile-icon" src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar"></a>
+                            </li>
+                        {% else %}
+                        <li class="nav-link">
+                            <a href="{% url 'profile' user=request.user %}"><img class="profile-icon" src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }} avatar"></a>
+                        </li>
+                        {% endif %}
                     {% endif %}
                 </ul>
                 </div>
