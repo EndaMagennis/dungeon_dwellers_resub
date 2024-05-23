@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from django.views.generic.edit import DeleteView
 from .models import Product, Category, Tag, ProductImage
-from .forms import ProductForm, ProductImageForm
+from .forms import ProductForm
 from django.contrib import messages
 
 
