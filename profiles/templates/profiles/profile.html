@@ -12,23 +12,18 @@
             <a href="#" class="btn btn-outline-dark btn-sm m-1" id="ajax-edit-avatar-btn"><i class="fa fa-camera"></i></a>
         </div>
 
-        <div class="profile-info-container col-6 m-2 text-dark justify-content-start">
+        <div class="profile-info-container col-6 m-2 text-dark">
             {% if user.profile.first_name and user.profile.last_name %}
                 <h2 class="d-inline">{{ user.profile.first_name }} {{ user.profile.last_name }}</h2>
-                <a href="{% url 'update_profile' user=request.user %}" class="btn btn-sm btn-outline-dark"><i class="fa-solid fa-plus"></i></a>
-
             {% elif user.profile.first_name %}
                 <h2 class="d-inline">{{ user.profile.first_name }}</h2>
-                <a href="{% url 'update_profile' user=request.user %}" class="btn btn-sm btn-outline-dark"><i class="fa-solid fa-plus"></i></a>
-
             {% else %}
                 <h2 class="d-inline">{{ user.username }}</h2>
-                <a href="{% url 'update_profile' user=request.user %}" class="btn btn-sm btn-outline-dark"><i class="fa-solid fa-plus"></i></a>
             {% endif %}
-
-            <h3>E-mail: </h3>
-            <h4 class="d-inline">{{ user.email }}</h4>
-            
+            <div class="email">
+                <h3 class="d-inline">E-mail: </h3>
+                <h4 class="d-inline">{{ user.email }}</h4>
+            </div>
 
             <div class="address-container">
                 <h3 class="d-inline">Address: </h3>
@@ -44,7 +39,7 @@
                     <h5 class="d-inline">No addresses</h5>
                 {% endif %}
             </div>
-            
+            <a href="{% url 'update_profile' user=request.user %}" class="btn btn-sm btn-outline-dark"><i class="fa-solid fa-plus float-right"></i> Update Profile</a>
         </div>
     </div>
 {% endblock %}
