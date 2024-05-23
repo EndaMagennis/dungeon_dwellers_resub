@@ -140,11 +140,22 @@ body {
     padding: 1em;
 }
 
+.promo-button {
+    text-decoration: underline;
+    color: #007bff;
+    border: 0;
+    background: hwb(0 100% 0% / 0);
+}
+
 .message-container {
     position: fixed;
     top: 72px;
     right: 15px;
     z-index: 99999999999;
+}
+
+.tag-button{
+    font-size: xx-small;
 }
 
 .overlay {

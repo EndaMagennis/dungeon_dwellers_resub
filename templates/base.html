@@ -80,7 +80,6 @@
                             </div>
                         </a>
                     </li>
-
                     <li class="list-inline-item">
                         <form class="d-flex" role="search">
                             {% csrf_token %}
@@ -120,12 +119,11 @@
     {% endblock %}
 
     {% block page_header %}
-    <div class="row promotions-container text-center">
-        <a href="#">
-            <div class="col-12">
-                <h5 class="bg-warning">Check out our latest promotions!</h5>
-            </div>
-        </a>
+    <div class="row promotions-container text-center bg-warning">
+        <form class="col-12" role="search" method="GET">
+            {% csrf_token %}
+            <input class="promo-button" name="promo-input" type="submit" aria-label="promo" value="Checkout our promotions!">
+        </form>
     </div>
     {% endblock %}
 

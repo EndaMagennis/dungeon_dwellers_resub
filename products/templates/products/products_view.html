@@ -32,14 +32,16 @@
                         <div class="product-image-container p-0">
                             {% if user.is_authenticated and user.is_superuser %}
                                 {% if product.get_all_images %}
-                                    <a href="{% url 'product_detail' product.id %}">
+                                    <a href="{% url 'product_detail' product.id %}" >
                                         <img src="{{ product.get_main_image.image.url }}" alt="{{ product.name }}" class="card-img-top img-fluid product-image">
                                     </a>
                                 {% else %}
                                     <a href="{% url 'product_detail' product.id %}">
-                                        <img src="{% static 'images/no-image-placeholder.png' %}" class="card-img-top img-fluid product-image" alt="{{ product.name }}">
+                                        <img src="{% static 'images/no-image-placeholder.png' %}"  class="card-img-top img-fluid product-image" alt="{{ product.name }}">
                                     </a>
-                                    <button class="d-block btn btn-secondary btn-sm m-2"><i class="fa-regular fa-image"></i></button>
+                                    <a href="{% url 'add_product_image' product.id %}" class="d-block btn btn-secondary btn-sm m-2 product-add-image" data-id="product-{{ product.id }}" id="ajax-product-add-image">
+                                        <i class="fa-regular fa-image"></i>
+                                    </a>
                                 {% endif %}
                             {% else %}
                                 {% if product.get_all_images %}
@@ -57,17 +59,18 @@
                             <h5 class="card-title">{{ product.name }}</h5><hr>
                             <p class="card-text">{{ product.description|safe|truncatewords:10 }}</p>
                             <p class="card-text">Price: ${{ product.price }}</p>
-                            <div class="tags row m-0">
+                            <div class="tags-container container-fluid m-0 d-flex flex-wrap w-100 p-0 lh-0">
                             {% for tag in product.tags.all %}
-                            <form class="col m-0 small" role="search" method="GET">
+                            <form class="m-0" role="search" method="GET">
                                 {% csrf_token %}
-                                <input class="tag-button btn btn-sm btn-outline-primary" type="submit" placeholder="Search" aria-label="Search" name="search-input" value="{{ tag.friendly_name }}">
+                                <input type="hidden" placeholder="Search" aria-label="Search" name="search-input" value="{{ tag.friendly_name }}">
+                                <button type="submit" class="btn btn-sm btn-outline-dark d-inline"><i class="fa-solid fa-tag fa-sm"></i> {{ tag.friendly_name | truncatechars:10 }}</button>
                             </form>
                             {% endfor %}
                             </div>
                         </div>
                         {% if user.is_authenticated and user.is_superuser %}
-                        <div class="card-footer d-flex justify-content-center">
+                        <div class="card-footer d-flex justify-content-center ">
                             <a href="{% url 'delete_product' product.id %}" class="btn btn-danger btn-sm m-1"><i class="fa-solid fa-trash"></i></a>
                             <a href="{% url 'edit_product' product.id %}" class="btn btn-success btn-sm m-1"><i class="fa-solid fa-pen"></i></a>
                         </div>
@@ -82,30 +85,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteConfirmationModalLabel">Confrirm Deletion</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h2>Are you sure you want to delete this?</h2>
-
-            </div>
-            <div class="modal-footer">
-                <form action="">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-danger">Delete</button>
-                </form>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 {% endblock %}
