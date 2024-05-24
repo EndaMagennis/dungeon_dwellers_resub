@@ -12,7 +12,7 @@
     <div class="form-container container-fluid w-50 text-light p-3 bg-dark opacity-75 rounded-1">
         <form class="form-control product-form" method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ product_form | crispy }}
+                {{ product_form | crispy | safe }}
                 <button class="btn btn-outline-primary">Submit</button>
                 <a href="{% url 'products' %}" class="btn btn-outline-secondary">Back To Products</a>
         </form>

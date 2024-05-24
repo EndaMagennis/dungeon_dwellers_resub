@@ -11,14 +11,13 @@
                 <hr>
             </div>
         </div>
-        <div class="row product-detail-container w-100 vh-100">
+        <div class="row vh-100 product-detail-container w-100">
             <div class="col-lg-3 col-md-12 product-image-container">
                 {% if product.get_all_images %}
                     <div class="carousel slide" id="carouselControls" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img src="{{ product.get_main_image.image_url }}" alt="{{ product.name }}" class="d-block w-100 img-fluid product-image">
-                                
                             </div>
                             {% for image in product.get_all_images %}
                                 {% if not image.is_default %}
@@ -46,7 +45,7 @@
                         </button>
                     </div>
                 {% else %}
-                <img src="{% static 'images/default_product.jpg' %}" class="card-img-top" alt="{{ product.name }}">
+                <img src="{% static 'images/no-image-placeholder.png' %}" class="card-img-top img-fluid product-image" alt="{{ product.name }}">
                 {% endif %}
             </div>
             <div class="details-container col-lg-7 col-md-11 offset-1 bg-dark text-light rounded-1">

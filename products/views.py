@@ -13,7 +13,7 @@ class ProductListView(View):
     """ A view to return the home page """
     
     def get(self, request, *args, **kwargs):
-        p = Paginator(Product.objects.all(), 16)
+        p = Paginator(Product.objects.all(), 6)
         page = request.GET.get('page')
         products = p.get_page(page)
         query = None

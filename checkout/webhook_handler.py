@@ -31,7 +31,8 @@ class StripeWH_Handler:
             body,
             settings.DEFAULT_FROM_EMAIL,
             [cust_email]
-        )        
+        )   
+        print("I'm the email")     
 
     def handle_event(self, event):
         """
@@ -45,6 +46,7 @@ class StripeWH_Handler:
         """
         Handle the payment_intent.succeeded webhook from Stripe
         """
+        print('Success')
         intent = event.data.object
         pid = intent.id
         bag = intent.metadata.bag
@@ -65,23 +67,23 @@ class StripeWH_Handler:
                 shipping_details.address[field] = None
 
         # Update profile information if save_info was checked
-        profile = None
-        username = intent.metadata.username
-        if username != 'AnonymousUser':
-            profile = Profile.objects.get(user__username=username)
-            address = Address.objects.get(user__username=username)
-            if save_info:
-                address.phone_number = shipping_details.phone
-                address.country = shipping_details.address.country
-                address.post_code = shipping_details.address.postal_code
-                address.city = shipping_details.address.city
-                address.address_line_1 = shipping_details.address.line1
-                address.address_line_2 = shipping_details.address.line2
-                address.county = shipping_details.address.state
-                address.save(commit=False)
-                address.is_default=True
-                address.save()
-            print(pid)
+        # profile = None
+        # username = intent.metadata.username
+        # if username != 'AnonymousUser':
+        #     profile = Profile.objects.get(user__username=username)
+        #     address = Address.objects.get(user__username=username)
+        #     if save_info:
+        #         address.phone_number = shipping_details.phone
+        #         address.country = shipping_details.address.country
+        #         address.post_code = shipping_details.address.postal_code
+        #         address.city = shipping_details.address.city
+        #         address.address_line_1 = shipping_details.address.line1
+        #         address.address_line_2 = shipping_details.address.line2
+        #         address.county = shipping_details.address.state
+        #         address.save(commit=False)
+        #         address.is_default=True
+        #         address.save()
+        #     print(pid)
 
 
         order_exists = False

@@ -12,7 +12,6 @@ html {
 body {
     background: url('../images/homepage_background.jpg') no-repeat center center fixed;
     background-size: cover;
-    height: calc(100vh - 164px);
     color: #555;
     font-family: 'Lato';
     overflow-x: hidden;
@@ -39,6 +38,11 @@ body {
     max-width: 300px;
 }
 
+.product-image {
+    max-width: 400px;
+    max-height: 400px;
+}
+
 .avatar{
     border-radius: 50%;
 }
@@ -60,11 +64,19 @@ body {
     border: 1px solid black;
     background: linear-gradient(60deg, #360a0a98, #555);
     width: 300px;
-    min-height: 500px;
+    min-height: 300px;
     margin: 1em;
     padding: 1em;
     color: antiquewhite;
+}
 
+.card-body {
+    height: 270px;
+}
+
+.tags-container {
+    max-height: 100px;
+    overflow-y: scroll;
 }
 
 .custom-toast {
@@ -182,6 +194,23 @@ body {
     cursor: pointer;
 }
 
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 0.5em;
+    width: 100%;
+    align-items: center;
+}
+
+.footer li {
+    display: inline;
+    margin-left: 1em;
+}
+
+.socials-list {
+    justify-items: center;
+}
+
 /* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
 .arrow-up {
     width: 0; 
@@ -244,8 +273,7 @@ body {
 @media screen and (max-width: 770px) {
     .card-container {
         display: flex;
-        justify-content: center;
-        margin-left: 0;
+        
     }
     
     .card {

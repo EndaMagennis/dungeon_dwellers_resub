@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from .models import Profile, Address
+from checkout.models import Order
 from .forms import ProfileForm, AddressForm
 
 class ProfileView(View):
@@ -16,11 +17,13 @@ class ProfileView(View):
             profile = get_object_or_404(Profile, user=request.user)
             addresses = Address.objects.filter(user=request.user)
             default_address = addresses.filter(is_default=True)
+            orders = Order.objects.filter(profile=request.user.profile)
 
             context = {
                 'profile': profile,
                 'addresses': addresses,
                 'default_address': default_address,
+                'orders': orders
             }
             return render(request, 'profiles/profile.html', context)
         else:

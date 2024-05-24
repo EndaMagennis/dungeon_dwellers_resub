@@ -23,6 +23,7 @@ def cache_checkout_data(request):
             'save_info': request.POST.get('save_info'),
             'username': request.user,
         })
+        print('#checkout/views/cache_checkout_data')
         return HttpResponse(status=200)
     except Exception as e:
         messages.error(request, 'Sorry, your payment cannot be \
@@ -36,6 +37,7 @@ def checkout(request):
 
     if request.method == 'POST':
         bag = request.session.get('bag', {})
+        print('#checkout/views/checkout/POST')
 
         form_data = {
             'full_name': request.POST['full_name'],
@@ -50,6 +52,7 @@ def checkout(request):
         }
         order_form = OrderForm(form_data)
         if order_form.is_valid():
+            print("Order Form is Valid")
             order = order_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
@@ -105,6 +108,7 @@ def checkout(request):
 
         if request.user.is_authenticated:
             try:
+                print('trying to create form with profile data')
                 profile = Profile.objects.get(user=request.user)
                 address = Address.objects.get(user=request.user, is_default=True)
                 order_form = OrderForm(initial={
@@ -123,6 +127,7 @@ def checkout(request):
             except Address.DoesNotExist:
                 order_form = OrderForm()
         else:
+            print('clean order form')
             order_form = OrderForm()
 
     if not stripe_public_key:
@@ -181,6 +186,18 @@ def checkout_success(request, order_number):
     template = 'checkout/checkout_success.html'
     context = {
         'order': order,
+    }
+
+    return render(request, template, context)
+
+def order_history(request, order_number):
+
+    order = get_object_or_404(Order, order_number=order_number)
+    
+    template = 'checkout/order_history.html'
+
+    context = {
+        'order': order
     }
 
     return render(request, template, context)

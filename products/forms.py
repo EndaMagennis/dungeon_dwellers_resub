@@ -2,7 +2,6 @@ from django.forms import ModelForm
 from django.forms import forms
 from django.forms import ClearableFileInput
 from cloudinary.models import CloudinaryField
-from django_summernote.fields import SummernoteTextFormField, SummernoteTextField
 
 
 from .models import Product, Category, Tag, ProductImage
@@ -50,6 +49,5 @@ class ProductForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        self.fields['description'] = SummernoteTextFormField()
         categories = self.fields['category'].queryset = Category.objects.all()
         tags = self.fields['tags'].queryset = Tag.objects.all()
