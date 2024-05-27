@@ -40,7 +40,7 @@
 <body>
     {% block header %}
     <header class="w-100 nav-container">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'home' %}">Dungeon Dwellers</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,8 +85,8 @@
             </div>
             <form class="d-flex" role="search">
                 {% csrf_token %}
-                <input class="form-control me-2" name="search-input" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input class="form-control me-2 search-bar" name="search-input" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn green-outline" type="submit">Search</button>
             </form>
             {% if user.is_authenticated %}
                 {% if user.profile.avatar %}
@@ -128,25 +128,43 @@
     {% endblock %}
 
     {% block page_header %}
-    <div class="row promotions-container text-center bg-warning">
-        <form class="col-12" role="search" method="GET">
+    <div class="promotions-container text-center">
+        <form  role="search" method="GET">
             {% csrf_token %}
             <input class="promo-button" name="promo-input" type="submit" aria-label="promo" value="Checkout our promotions!">
         </form>
     </div>
     {% endblock %}
 
-    {% block content %}
-    {% endblock %}
+    <main class="main-container container-fluid vh-100">
+        {% block content %}
+        {% endblock %}
+    </main>
+
 
     {% block footer %}
-        <footer class="footer d-flex align-items-center w-100 text-center">
-            <div class="socials-container">
-                <ul class="socials-list">
-                    <li"><a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Link to Facebook(Opens new tab)"><i class="fa-brands fa-facebook"></i></a></li>
-                    <li><a href="https://www.twitter.com" target="_blank" rel="noopener" aria-label="Link to Twitter(Opens new tab)"><i class="fa-brands fa-twitter"></i></a></li>
-                    <li><a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Link to Instagram(Opens new tab)"><i class="fa-brands fa-instagram"></i></a></li>
-                </ul>
+        <footer class="footer">
+            <div class="logo-container">
+                <span>Dungeon</span> Dwellers
+                <i class="fa-solid fa-dice"></i>
+            </div>
+            <div class="footer-container container container-fluid">
+                <div class="footer-socials-container">
+                    <ul>
+                        <li>FB</li>
+                        <li>Insta</li>
+                        <li>Twitter</li>
+                        <li>YouTube</li>
+                    </ul>
+                </div>
+                <div class="nav-container">
+                    <ul>
+                        <li>About</li>
+                        <li>Home</li>
+                        <li>Contact</li>
+                        <li>Careers</li>
+                    </ul>
+                </div>
             </div>
         </footer>
     {% endblock %}
@@ -155,6 +173,7 @@
     <script>
         $(document).ready(function(){
             $('.toast').toast('show');
+            $('[data-toggle="tooltip"]').tooltip()
         })
     </script>
     {% endblock %}

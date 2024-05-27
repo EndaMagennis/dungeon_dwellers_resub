@@ -9,7 +9,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="form-container container-fluid w-50 text-light p-3 bg-dark opacity-75 rounded-1">
+<div class="overlay"></div>
+    <div class="form-container container-fluid w-50 text-light p-3 bg-dark rounded-1">
         <form class="form-control product-form" method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data" id="product-form">
                 {% csrf_token %}
                 {{ product_form | crispy }}
@@ -17,4 +18,7 @@
                 <a href="{% url 'products' %}" class="btn btn-outline-secondary">Back To Products</a>
         </form>
     </div>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

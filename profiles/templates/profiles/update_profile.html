@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block content %}
-    <div class="profile-form-conatainer w-75 my-5 d-flex justify-content-center text-light">
-        <div class="form-header row w-100 text-light">
-            <h2 class="col-12">Update Profile</h2>
-        </div>
-        <div class="form-content w-100 row">
+<div class="overlay"></div>
+    <div class="profile-form-conatainer my-5 d-flex justify-content-center">
+        <div class="form-content row grey p-3 rounded-1">
+            <div class="form-header row w-100 black-text text-center">
+                <h2 class="col-12">Update Profile</h2>
+            </div>
             <form action="{% url 'update_profile' user=request.user %}" method="POST" class="form col-12">
                 {% csrf_token %}
                 <table>
@@ -14,8 +15,11 @@
                     {{ address_form | crispy }}
                 </table>
                 <br>
-                <button type="submit" class="btn btn-outline-light">Save</button>
+                <button type="submit" class="btn blue">Save</button>
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

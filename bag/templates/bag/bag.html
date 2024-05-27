@@ -3,10 +3,11 @@
 {% load bag_tools %}
 
 {% block content %}
-    <div class="bag-item-container w-100 mx-3 p-4">
+    <div class="overlay"></div>
+    <div class="bag-item-container container-fluid w-100 mx-3 p-4 d-flex justify-content-center">
         {% if bag_items %}
-        <table class="table-responsive w-75 rounded-1 bg-body-tertiary float-right">
-            <thead class="p-3">
+        <table class="table-responsive w-75 rounded-1 grey float-right">
+            <thead class="p-3 m-3">
                 <tr>
                     <th scope="col"></th>
                     <th scope="col" class="text-decoration-underline">Product Info</th>
@@ -50,8 +51,8 @@
                                 </div>
                             </div>
                         </form>
-                        <a class="update-link text-info"><small>Update</small></a>
-                        <a class="remove-item text-danger float-right" id="remove_{{ item.item_id }}" data-product_dimensions="{{ item.dimensions }}"><small>Remove</small></a>
+                        <a class="update-link blue-text"><small>Update</small></a>
+                        <a class="remove-item red-text float-right" id="remove_{{ item.item_id }}" data-product_dimensions="{{ item.dimensions }}"><small>Remove</small></a>
                     </td>
                     <td class="py-3">
                         <p class="my-0">${{ item.product.price | calc_subtotal:item.quantity }}</p>
@@ -59,12 +60,12 @@
                 </tr>
             {% endfor %}
             <tr>
-                <td colspan="5" class="pt-5 text-right">
+                <td colspan="5" class="p-3 text-right">
                     <h6><strong>Bag Total: ${{ total|floatformat:2 }}</strong></h6>
                     <h6>Delivery: ${{ delivery|floatformat:2 }}</h6>
                     <h4 class="mt-4"><strong>Grand Total: ${{ grand_total|floatformat:2 }}</strong></h4>
                     {% if free_delivery_delta > 0 %}
-                        <p class="mb-1 text-danger">
+                        <p class="mb-1 red-text">
                             You could get free delivery by spending just <strong>${{ free_delivery_delta }}</strong> more!
                         </p>
                     {% endif %}
@@ -72,13 +73,13 @@
             </tr>
             <tr>
                 <td colspan="5" class="text-right">
-                    <a href="{% url 'products' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                    <a href="{% url 'products' %}" class="btn white rounded-1 m-1">
                         <span class="icon">
                             <i class="fas fa-chevron-left"></i>
                         </span>
                         <span class="text-uppercase">Keep Shopping</span>
                     </a>
-                    <a href="{% url 'checkout' %}" class="btn btn-black rounded-0 btn-lg">
+                    <a href="{% url 'checkout' %}" class="btn black rounded-1 m-1">
                         <span class="text-uppercase">Secure Checkout</span>
                         <span class="icon">
                             <i class="fas fa-lock"></i>
@@ -88,15 +89,20 @@
             </tr>
         </table>
         {% else %}
+        <div class="justify-self-end float-right w-100">
             <p class="lead mb-5">Your bag is empty.</p>
-            <a href="{% url 'products' %}" class="btn btn-outline-black rounded-0 btn-lg">
+            <a href="{% url 'products' %}" class="btn btn-outline-dark rounded-1">
                 <span class="icon">
                     <i class="fas fa-chevron-left"></i>
                 </span>
                 <span class="text-uppercase">Keep Shopping</span>
             </a>
+        </div>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}
 
 {% block postload_js %}

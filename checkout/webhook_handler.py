@@ -32,7 +32,7 @@ class StripeWH_Handler:
             settings.DEFAULT_FROM_EMAIL,
             [cust_email]
         )   
-        print("I'm the email")     
+           
 
     def handle_event(self, event):
         """
@@ -46,7 +46,6 @@ class StripeWH_Handler:
         """
         Handle the payment_intent.succeeded webhook from Stripe
         """
-        print('Success')
         intent = event.data.object
         pid = intent.id
         bag = intent.metadata.bag
@@ -56,6 +55,7 @@ class StripeWH_Handler:
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
         )
+        print(stripe_charge)
 
         billing_details = stripe_charge.billing_details # updated
         shipping_details = intent.shipping
@@ -67,25 +67,22 @@ class StripeWH_Handler:
                 shipping_details.address[field] = None
 
         # Update profile information if save_info was checked
-        # profile = None
-        # username = intent.metadata.username
-        # if username != 'AnonymousUser':
-        #     profile = Profile.objects.get(user__username=username)
-        #     address = Address.objects.get(user__username=username)
-        #     if save_info:
-        #         address.phone_number = shipping_details.phone
-        #         address.country = shipping_details.address.country
-        #         address.post_code = shipping_details.address.postal_code
-        #         address.city = shipping_details.address.city
-        #         address.address_line_1 = shipping_details.address.line1
-        #         address.address_line_2 = shipping_details.address.line2
-        #         address.county = shipping_details.address.state
-        #         address.save(commit=False)
-        #         address.is_default=True
-        #         address.save()
-        #     print(pid)
-
-
+        profile = None
+        username = intent.metadata.username
+        if username != 'AnonymousUser':
+            profile = Profile.objects.get(user__username=username)
+            address = Address.objects.get(user__username=username)
+            if save_info:
+                address.phone_number = shipping_details.phone
+                address.country = shipping_details.address.country
+                address.post_code = shipping_details.address.postal_code
+                address.city = shipping_details.address.city
+                address.address_line_1 = shipping_details.address.line1
+                address.address_line_2 = shipping_details.address.line2
+                address.county = shipping_details.address.state
+                address.save(commit=False)
+                address.is_default=True
+                address.save()
         order_exists = False
         attempt = 1
         while attempt <= 5:
@@ -105,14 +102,14 @@ class StripeWH_Handler:
                     stripe_pid=pid,
                 )
                 order_exists = True
-                print("Trying to send")
                 break
             except Order.DoesNotExist:
+                print("no order")
                 attempt += 1
                 time.sleep(1)
         if order_exists:
+            print("order exists")
             self._send_confirmation_email(order)
-            print('Sending Email')
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
@@ -154,12 +151,10 @@ class StripeWH_Handler:
             except Exception as e:
                 if order:
                     order.delete()
-                    print('Not Sending Email')
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
         self._send_confirmation_email(order)
-        print('Sending Email   2')
 
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',

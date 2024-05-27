@@ -3,9 +3,13 @@
 
 {% block extra_title %}My Profile{% endblock %}
 
+{% block page_header %}
+{% endblock %}
+
 {% block content %}
-    <div class="profile-container my-3 p-3 d-flex row bg-body-tertiary opacity-75">
-        <div class="avatar-container col-3 m-2">
+<div class="overlay"></div>
+    <div class="profile-container container-fluid row grey">
+        <div class="avatar-container col-3">
             {% if user.profile.avatar.url %}
                 <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}'s profile picture" class="avatar img-fluid img-round">
             {% else %}
@@ -13,8 +17,7 @@
             {% endif %}
             <a href="#" class="btn btn-outline-dark btn-sm m-1" id="ajax-edit-avatar-btn"><i class="fa fa-camera"></i></a>
         </div>
-
-        <div class="profile-info-container col-6 m-2 text-dark">
+        <div class="profile-info-container col-6 black-text">
             {% if user.profile.first_name and user.profile.last_name %}
                 <h2 class="d-inline">{{ user.profile.first_name }} {{ user.profile.last_name }}</h2>
             {% elif user.profile.first_name %}
@@ -41,34 +44,33 @@
                     <h5 class="d-inline">No addresses</h5>
                 {% endif %}
             </div>
-            <a href="{% url 'update_profile' user=request.user %}" class="btn btn-sm btn-outline-dark"><i class="fa-solid fa-plus float-right"></i> Update Profile</a>
+            <a href="{% url 'update_profile' user=request.user %}" class="btn btn-sm white"><i class="fa-solid fa-plus float-right"></i> Update Profile</a>
         </div>
-        <div class="col-12 order-history-container">
-            <div class="order-history-header">
-                <h2>Order History</h2>
-            </div>
-            <table class="table table-borderless order-history-body">
-                <thead>
-                    <tr>
-                        <td>Order Number</td>
-                        <td>Order Date</td>
-                        <td>Order Delivery Cost</td>
-                        <td>Order Grand total</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for order in orders.all %}
-                    <tr>
-                        <td><a href="{% url 'order_history' order.order_number %}">{{ order.order_number|truncatechars:10 }}</a></td>
-                        <td>{{ order.date }}</td>
-                        <td>{{ order.delivery_cost|truncatechars:10 }}</td>
-                        <td>{{ order.grand_total|truncatechars:10 }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                
-            </table>
+    </div>
+    <div class="order-history-container row m-3">
+        <div class="order-history-header">
+            <h2>Order History</h2>
         </div>
+        <table class="table table-borderless order-history-body">
+            <thead>
+                <tr>
+                    <td>Order Number</td>
+                    <td>Order Date</td>
+                    <td>Order Delivery Cost</td>
+                    <td>Order Grand total</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders.all %}
+                <tr>
+                    <td><a href="{% url 'order_history' order.order_number %}">{{ order.order_number|truncatechars:10 }}</a></td>
+                    <td>{{ order.date }}</td>
+                    <td>{{ order.delivery_cost|truncatechars:10 }}</td>
+                    <td>{{ order.grand_total|truncatechars:10 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}
 
@@ -112,4 +114,7 @@
             });
         });
     </script>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}
