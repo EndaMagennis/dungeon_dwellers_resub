@@ -8,69 +8,71 @@
 
 {% block content %}
 <div class="overlay"></div>
-    <div class="profile-container container-fluid row grey">
-        <div class="avatar-container col-3">
-            {% if user.profile.avatar.url %}
-                <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}'s profile picture" class="avatar img-fluid img-round">
-            {% else %}
-                <img src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }}'s profile picture" class="avatar img-fluid img-round">
-            {% endif %}
-            <a href="#" class="btn btn-outline-dark btn-sm m-1" id="ajax-edit-avatar-btn"><i class="fa fa-camera"></i></a>
-        </div>
-        <div class="profile-info-container col-6 black-text">
-            {% if user.profile.first_name and user.profile.last_name %}
-                <h2 class="d-inline">{{ user.profile.first_name }} {{ user.profile.last_name }}</h2>
-            {% elif user.profile.first_name %}
-                <h2 class="d-inline">{{ user.profile.first_name }}</h2>
-            {% else %}
-                <h2 class="d-inline">{{ user.username }}</h2>
-            {% endif %}
-            <div class="email">
-                <h3 class="d-inline">E-mail: </h3>
-                <h4 class="d-inline">{{ user.email }}</h4>
-            </div>
-
-            <div class="address-container">
-                <h3 class="d-inline">Address: </h3>
-                {% if addresses %}
-                    {% if default_address %}
-                        {% for field in default_address %}
-                            <h5 class="d-inline">{{ field }}</h5>
-                        {% endfor %}
-                    {% else %}
-                        <h5 class="d-inline">No default address</h5>
-                    {% endif %}
+    <div class="container-fluid p-3 w-100">
+        <div class="profile-container rounded-1 d-flex row w-100 grey align-items-center">
+            <div class="avatar-container col-3">
+                {% if user.profile.avatar.url %}
+                    <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}'s profile picture" class="avatar img-fluid img-round">
                 {% else %}
-                    <h5 class="d-inline">No addresses</h5>
+                    <img src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }}'s profile picture" class="avatar img-fluid img-round">
                 {% endif %}
+                <a href="#" class="btn btn-outline-dark btn-sm m-1" id="ajax-edit-avatar-btn"><i class="fa fa-camera"></i></a>
             </div>
-            <a href="{% url 'update_profile' user=request.user %}" class="btn btn-sm white"><i class="fa-solid fa-plus float-right"></i> Update Profile</a>
+            <div class="profile-info-container col-6 black-text">
+                {% if user.profile.first_name and user.profile.last_name %}
+                    <h2 class="d-inline">{{ user.profile.first_name }} {{ user.profile.last_name }}</h2>
+                {% elif user.profile.first_name %}
+                    <h2 class="d-inline">{{ user.profile.first_name }}</h2>
+                {% else %}
+                    <h2 class="d-inline">{{ user.username }}</h2>
+                {% endif %}
+                <div class="email">
+                    <h3 class="d-inline">E-mail: </h3>
+                    <h4 class="d-inline">{{ user.email }}</h4>
+                </div>
+
+                <div class="address-container">
+                    <h3 class="d-inline">Address: </h3>
+                    {% if addresses %}
+                        {% if default_address %}
+                            {% for field in default_address %}
+                                <h5 class="d-inline">{{ field }}</h5>
+                            {% endfor %}
+                        {% else %}
+                            <h5 class="d-inline">No default address</h5>
+                        {% endif %}
+                    {% else %}
+                        <h5 class="d-inline">No addresses</h5>
+                    {% endif %}
+                </div>
+                <a href="{% url 'update_profile' user=request.user %}" class="btn btn-sm white"><i class="fa-solid fa-plus float-right"></i> Update Profile</a>
+            </div>
         </div>
-    </div>
-    <div class="order-history-container row m-3">
-        <div class="order-history-header">
-            <h2>Order History</h2>
+        <div class="order-history-container row m-3">
+            <div class="order-history-header">
+                <h2>Order History</h2>
+            </div>
+            <table class="table table-borderless order-history-body">
+                <thead>
+                    <tr>
+                        <td>Order Number</td>
+                        <td>Order Date</td>
+                        <td>Order Delivery Cost</td>
+                        <td>Order Grand total</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders.all %}
+                    <tr>
+                        <td><a href="{% url 'order_history' order.order_number %}">{{ order.order_number|truncatechars:10 }}</a></td>
+                        <td>{{ order.date }}</td>
+                        <td>{{ order.delivery_cost|truncatechars:10 }}</td>
+                        <td>{{ order.grand_total|truncatechars:10 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <table class="table table-borderless order-history-body">
-            <thead>
-                <tr>
-                    <td>Order Number</td>
-                    <td>Order Date</td>
-                    <td>Order Delivery Cost</td>
-                    <td>Order Grand total</td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in orders.all %}
-                <tr>
-                    <td><a href="{% url 'order_history' order.order_number %}">{{ order.order_number|truncatechars:10 }}</a></td>
-                    <td>{{ order.date }}</td>
-                    <td>{{ order.delivery_cost|truncatechars:10 }}</td>
-                    <td>{{ order.grand_total|truncatechars:10 }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
     </div>
 {% endblock %}
 

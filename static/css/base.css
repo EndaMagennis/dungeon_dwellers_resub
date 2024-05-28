@@ -453,7 +453,14 @@ body {
     cursor: pointer;
 }
 
-/*--Footer--*/
+
+/*--- Bag View ---*/
+
+.bag-item-container{
+    margin: 2em auto;
+}
+
+/*--- Footer--*/
 
 footer {
     background-color: #333;
@@ -470,7 +477,7 @@ footer {
 }
 
 .socials-list {
-    justify-items: center;
+    justify-content: center;
 }
 
 /* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
@@ -539,6 +546,23 @@ footer {
     }
     .profile-container table {
         text-align: center;
+    }
+    .bag-item-container {
+        display: flex;
+        margin: 0;
+        width: 100%;
+    }
+    .table-responsive {
+        font-size: small;
+        justify-self: center;
+        margin: 0;
+    }
+    .table-responsive td{
+        border: 1px solid var(--clr-black);
+    }
+    .table-responsive .thumbnail,
+    .table-responsive .blank-col{
+        display: none;
     }
 }
 

@@ -4,12 +4,12 @@
 
 {% block content %}
     <div class="overlay"></div>
-    <div class="bag-item-container container-fluid w-100 mx-3 p-4 d-flex justify-content-center">
+    <div class="bag-item-container container-fluid d-flex justify-content-center">
         {% if bag_items %}
-        <table class="table-responsive w-75 rounded-1 grey float-right">
+        <table class="table-responsive w-100 grey">
             <thead class="p-3 m-3">
                 <tr>
-                    <th scope="col"></th>
+                    <th scope="col" class="blank-col"></th>
                     <th scope="col" class="text-decoration-underline">Product Info</th>
                     <th scope="col" class="text-decoration-underline">Price</th>
                     <th scope="col" class="text-decoration-underline">Qty</th>
@@ -77,10 +77,10 @@
                         <span class="icon">
                             <i class="fas fa-chevron-left"></i>
                         </span>
-                        <span class="text-uppercase">Keep Shopping</span>
+                        <span>View Wares</span>
                     </a>
                     <a href="{% url 'checkout' %}" class="btn black rounded-1 m-1">
-                        <span class="text-uppercase">Secure Checkout</span>
+                        <span >Secure Checkout</span>
                         <span class="icon">
                             <i class="fas fa-lock"></i>
                         </span>
@@ -95,7 +95,7 @@
                 <span class="icon">
                     <i class="fas fa-chevron-left"></i>
                 </span>
-                <span class="text-uppercase">Keep Shopping</span>
+                <span>Keep Shopping</span>
             </a>
         </div>
         {% endif %}

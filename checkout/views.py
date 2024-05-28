@@ -23,7 +23,6 @@ def cache_checkout_data(request):
             'save_info': request.POST.get('save_info'),
             'username': request.user,
         })
-        print(request)
         return HttpResponse(status=200)
     except Exception as e:
         messages.error(request, 'Sorry, your payment cannot be \
@@ -103,7 +102,8 @@ def checkout(request):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
-        print("Created intent")
+        print(intent)
+
 
         if request.user.is_authenticated:
             try:
@@ -147,7 +147,7 @@ def checkout_success(request, order_number):
     """
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
-
+    print("Success")
     if request.user.is_authenticated:
         profile = Profile.objects.get(user=request.user)
         address = Address.objects.get(user=request.user, is_default=True)
