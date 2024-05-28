@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_title %}Wishlist{% endblock %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col">
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="products-container container-fluid p-0 m-0 text-light">
+   <div class="products-container-header text-center mb-2">
+        <h2>Soon to be your Treasures</h2>
+   </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="row card-container">
+                {% if products %}
+                    {% for product in products %}
+                    <div class="card {% if product.is_featured %}featured{% endif %} col-lg-3 col-md-5 col-12">
+                        <div class="product-image-container p-1 m-1">
+                            {% if product.get_all_images %}
+                                <a href="{% url 'product_detail' product.id %}" data-toggle="tooltip" title="Go to details for {{ product.name }}"  aria-label="link to product details page for {{ product.name }}">
+                                    <img src="{{ product.get_main_image.image.url }}" alt="{{ product.name }}" class="card-img-top img-fluid product-image">
+                                </a>
+                            {% else %}
+                                <a href="{% url 'product_detail' product.id %}" data-toggle="tooltip" title="Go to details for {{ product.name }}"  aria-label="link to product details page for {{ product.name }}">
+                                    <img src="{% static 'images/default_product.jpg' %}" class="card-img-top img-fluid product-image" alt="{{ product.name }}">
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title mx-2 text-decoration-underline"><strong>{{ product.name }}</strong></h5>
+                            <form role="search" method="GET">
+                                <input type="hidden" placeholder="Search" aria-label="Search" name="search-input" value="{{ product.category.friendly_name }}">
+                                <button type="submit" class="blue-light btn btn-sm" data-toggle="tooltip" title="{{ product.category.friendly_name }}" aria-label="button for {{ product.category.friendly_name }} whcih will return a page of products in that category">{{ product.category.friendly_name | truncatechars:10 }}</button>
+                            </form><hr>
+                            <button class="col-3 add-to-wishlist btn" data-id="{{ product.id }}">
+                                {% if product in wishlist.user.wishlist.all %}
+                                    <i class="fa fa-heart"></i>
+                                {% else %}
+                                    <i class="fa-regular fa-heart"></i>
+                                {% endif %}
+                            </button>
+                            <p class="card-text">{{ product.description|safe|truncatewords:10 }}</p><hr>
+                            <p class="card-text"><strong>Price:</strong> €{{ product.price }}</p>
+                            {% if product.has_amount %}
+                                <p class="card-text"><strong>Quantity: </strong> {{ product.amount }}pcs</p>
+                            {% endif %}
+                            {% if product.has_dimensions %}
+                                <p class="card-text"><strong>Height: </strong> {{ product.height }}mm</p>
+                            {% endif %}
+                            <hr>
+                            <div class="tags-container m-0 d-flex flex-wrap">
+                            {% for tag in product.tags.all %}
+                            <form class="m-0" role="search" method="GET">
+                                {% csrf_token %}
+                                <input type="hidden" placeholder="Search" aria-label="Search" name="search-input" value="{{ tag.friendly_name }}">
+                                <button type="submit" class="blue-light tag-button btn btn-sm d-inline" data-toggle="tooltip" title="{{ tag.friendly_name }}" 
+                                aria-label="button for {{ tag.friendly_name }} which will return a page of products with that tag">
+                                    <i class="fa-solid fa-tag fa-sm"></i> {{ tag.friendly_name | truncatechars:10 }}
+                                </button>
+                            </form>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="col-12">
+                    <p>No treasures found.</p>
+                    <a href="{% url 'products' %}" class="btn black">Add some now!</a>
+                </div>
+                {% endif %}
+            </div>
+            
+        </div>
+    </div>
+    {% if products.paginator.num_pages %}
+        <div class="row d-flex justify-items-center">
+            <div class="pagination my-5 col p-3 justify-content-center">
+                <span class="page-links mr-2">
+                    {% if products.has_previous %}
+                        <a href="?page=1" class="btn btn-dark" data-toggle="tooltip" title="Jump to First page"><i class="fa fa-caret-left" aria-label="Go to first page of products"></i><i class="fa fa-caret-left"></i> First</a>
+                        <a href="?page={{ products.previous_page_number }}" class="btn btn-dark" data-toggle="tooltip" title="Jump to previous page of products" aria-label="Go to previous page of products"><i class="fa fa-caret-left"></i> Previous</a>
+                    {% endif %}
+                </span>
+                <span class="page-links ml-2">
+                    {% if products.has_next %}
+                        <a href="?page={{ products.next_page_number }}" class="btn btn-dark" data-toggle="tooltip" title="Jump to next page of products" aria-label="Go to next page of products">Next <i class="fa fa-caret-right"></i></a>
+                        <a href="?page={{ products.paginator.num_pages }}" class="btn btn-dark" class="btn btn-dark" data-toggle="tooltip" title="Jump to final page of products" aria-label="Go to final page of products">Last <i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+        {% endif %}
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block postload_js %}
+{{ block.super }}
+<script>
+    $(document).ready(function() {
+    console.log('ready');
+        $('.add-to-wishlist').each(function (){
+            $(this).on('click', function(e) {
+                let productId = $(this).data('id');
+                e.stopPropagation();
+                e.preventDefault();
+                $(this).parent().append('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "add_remove_wishlist" %}',
+                    data: {
+                        'product_id': productId,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.product_in_wishlist == false) {
+                            $(this).html('<i class="fa-regular fa-heart"></i>');
+                        } else {
+                            $(this).html('<i class="fa fa-heart"></i>');
+                        }
+
+                        $(this).parent().find('.spinner-border').remove();
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                    },
+                    error: function (data) {
+                        console.log('error');
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

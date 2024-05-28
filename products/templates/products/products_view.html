@@ -51,6 +51,10 @@
                                 <input type="hidden" placeholder="Search" aria-label="Search" name="search-input" value="{{ product.category.friendly_name }}">
                                 <button type="submit" class="blue-light btn btn-sm" data-toggle="tooltip" title="{{ product.category.friendly_name }}" aria-label="button for {{ product.category.friendly_name }} whcih will return a page of products in that category">{{ product.category.friendly_name | truncatechars:10 }}</button>
                             </form><hr>
+                            <button class="col-3 add-to-wishlist btn btn-sm" data-id="{{ product.id }}">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+
                             <p class="card-text">{{ product.description|safe|truncatewords:10 }}</p><hr>
                             <p class="card-text"><strong>Price:</strong> €{{ product.price }}</p>
                             {% if product.has_amount %}
@@ -113,4 +117,44 @@
 {% endblock %}
 
 {% block footer %}
+{% endblock %}
+
+{% block postload_js %}
+{{ block.super }}
+<script>
+    $(document).ready(function() {
+        $('.add-to-wishlist').each(function (){
+            $(this).on('click', function(e) {
+                let productId = $(this).data('id');
+                e.stopPropagation();
+                e.preventDefault();
+                $(this).parent().parent().append('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "add_remove_wishlist" %}',
+                    data: {
+                        'product_id': productId,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.product_in_wishlist == false) {
+                            $(this).addClass('white');
+                        } else {
+                            $(this).addClass('red');
+                        }
+
+                        $(this).parent().find('.spinner-border').remove();
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                    },
+                    error: function (data) {
+                        console.log('error');
+                    }
+                });
+            });
+        });
+    });
+</script>
 {% endblock %}

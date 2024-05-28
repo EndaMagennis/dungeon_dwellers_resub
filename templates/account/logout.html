@@ -1,0 +1,26 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block inner_content %}
+<div class="overlay"></div>
+<div class="white-bg w-100 rounded-1 row container-fluid m-5 p-2 black-text">
+  <h2 class="logo-font mb-4">{% trans "Sign Out" %}</h2>
+  <hr>
+  <p>Are you sure you want to leave?</p>
+  <form class="col" method="POST" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <a class="btn black rounded-1" href="{% url 'home' %}">Home</a>
+    <button class="white p-2 rounded-1 btn" type="submit">{% trans "Sign Out" %}</button>
+    
+  </form>
+</div>
+{% endblock %}
