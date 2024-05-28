@@ -47,13 +47,18 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title mx-2 text-decoration-underline"><strong>{{ product.name }}</strong></h5>
-                            <form role="search" method="GET">
+                            <form role="search" method="GET" class="d-inline">
                                 <input type="hidden" placeholder="Search" aria-label="Search" name="search-input" value="{{ product.category.friendly_name }}">
                                 <button type="submit" class="blue-light btn btn-sm" data-toggle="tooltip" title="{{ product.category.friendly_name }}" aria-label="button for {{ product.category.friendly_name }} whcih will return a page of products in that category">{{ product.category.friendly_name | truncatechars:10 }}</button>
-                            </form><hr>
-                            <button class="col-3 add-to-wishlist btn btn-sm" data-id="{{ product.id }}">
-                                <i class="fa-regular fa-heart"></i>
+                            </form>
+                            <button class="col-3 add-to-wishlist btn btn-sm d-inline float-right" data-id="{{ product.id }}">
+                                {% if product.id in wishlist.all %}
+                                    <i class="fa-solid fa-heart"></i>
+                                {% else %}
+                                    <i class="fa-regular fa-heart"></i>
+                                {% endif %}
                             </button>
+                            <hr>
 
                             <p class="card-text">{{ product.description|safe|truncatewords:10 }}</p><hr>
                             <p class="card-text"><strong>Price:</strong> €{{ product.price }}</p>
@@ -123,6 +128,7 @@
 {{ block.super }}
 <script>
     $(document).ready(function() {
+        console.log("Ready")
         $('.add-to-wishlist').each(function (){
             $(this).on('click', function(e) {
                 let productId = $(this).data('id');
@@ -138,12 +144,6 @@
                     },
                     dataType: 'json',
                     success: function (data) {
-                        if (data.product_in_wishlist == false) {
-                            $(this).addClass('white');
-                        } else {
-                            $(this).addClass('red');
-                        }
-
                         $(this).parent().find('.spinner-border').remove();
                         setTimeout(function() {
                             location.reload();
@@ -157,4 +157,5 @@
         });
     });
 </script>
+
 {% endblock %}

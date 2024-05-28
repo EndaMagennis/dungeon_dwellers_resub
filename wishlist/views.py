@@ -1,23 +1,58 @@
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
+from django.db.models import Q
 from django.contrib import messages
 from .models import Wishlist
-from products.models import Product
+from products.models import Product, Tag, Category
 
 class WishlistView(View):
     """View for user wishlist"""
     def get(self, request, *args, **kwargs):
+
+        query = None
+        categories = Category.objects.all()
+        tags = Tag.objects.all()
+
         if request.user.is_authenticated:
             wishlist = get_object_or_404(Wishlist, user=request.user)
             products = wishlist.get_products()
+
+            template = 'wishlist/wishlist.html'
             context = {
                 'wishlist': wishlist,
                 'products': products,
             }
-            return render(request, 'wishlist/wishlist.html', context)
+
+            if request.GET:
+                query = request.GET.get('search-input')
+                promo = request.GET.get('promo-input')
+                if query:
+                        products = Product.objects.filter(
+                            Q(name__icontains=query) |
+                            Q(category__friendly_name__icontains=query) |
+                            Q(tags__friendly_name__icontains=query)
+                        ).distinct()
+                        
+                        context = {
+                            'products': products,
+                            'categories': categories,
+                            'tags': tags,
+                            'query': query,
+                        }
+                        template = 'products/products_view.html'
+                if promo:
+                        products = Product.objects.filter(is_featured=True)
+                        context= {
+                            'products': products
+                        }
+                        template = 'products/products_view.html'
+
+            return render(request, template, context)
         else:
             return render(request, 'account_login.html')
+        
+        
 
 
 class AddRemoveWishlistView(View):

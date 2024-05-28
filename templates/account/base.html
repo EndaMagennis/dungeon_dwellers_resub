@@ -3,13 +3,9 @@
 
 {% block content %}
     <div class="account-control-container container-fluid d-flex align-content-center justify-content-center">
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <div class="allauth-form-inner-content">
-                    {% block inner_content %}
-                    {% endblock %}
-                </div>
-            </div>
+        <div class="allauth-form-inner-content">
+            {% block inner_content %}
+            {% endblock %}
         </div>
     </div>
 {% endblock %}

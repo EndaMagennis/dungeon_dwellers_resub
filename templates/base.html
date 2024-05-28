@@ -52,70 +52,79 @@
     <header class="w-100 nav-container">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'home' %}">Dungeon Dwellers</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <a class="navbar-brand" href="{% url 'home' %}" aria-label="">Dungeon Dwellers</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav my-auto mb-2 mb-lg-0 align-items-center w-100">
-                    {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'profile' user=request.user %}">My Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'account_login' %}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
-                    </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'products' %}">Shop now</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'view_bag' %}">
-                            <div class="text-center small">
-                                <div><i class="fas fa-shopping-bag fa-lg"></i></div>
-                                <p class="my-0">
-                                    {% if grand_total %}
-                                        ${{ grand_total|floatformat:2 }}
-                                    {% else %}
-                                        $0.00
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+                    
+                    <ul class="navbar-nav my-auto mb-2 mb-lg-0 align-items-center w-100">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'profile' user=request.user %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'wishlist' %}">Wishlist</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'account_login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'products' %}">Shop</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'view_bag' %}">
+                                <div class="text-center small">
+                                    <div><i class="fas fa-shopping-bag fa-lg"></i></div>
+                                    <p class="my-0">
+                                        {% if grand_total %}
+                                            ${{ grand_total|floatformat:2 }}
+                                        {% else %}
+                                            $0.00
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <form class="d-flex" role="search">
-                {% csrf_token %}
-                <input class="form-control me-2 search-bar" name="search-input" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn green-outline" type="submit">Search</button>
-            </form>
-            {% if user.is_authenticated %}
-                {% if user.profile.avatar %}
-                <div class="justify-self-end mx-5">
-                    <li class="nav-link">
-                        <a href="{% url 'profile' user=request.user %}"><img class="profile-icon justify-self-end" src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar"></a>
-                    </li>
-                </div>
-                {% else %}
-                <div class="justify-self-end mx-5">
-                    <li class="nav-link">
-                        <a href="{% url 'profile' user=request.user %}"><img class="profile-icon justify-self-end" src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }} avatar"></a>
-                    </li>
-                </div>
+            <div class="profile-icon-container container-fluid">
+                <form class="d-flex w-75" role="search">
+                    {% csrf_token %}
+                    <input class="form-control me-2 search-bar" name="search-input" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-sm green-outline" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+                {% if user.is_authenticated %}
+                    {% if user.profile.avatar %}
+                    <div class="">
+                        <li class="nav-link">
+                            <a href="{% url 'profile' user=request.user %}"><img class="profile-icon" 
+                                src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar"></a>
+                        </li>
+                    </div>
+                    {% else %}
+                    <div class="">
+                        <li class="nav-link">
+                            <a href="{% url 'profile' user=request.user %}"><img class="profile-icon" 
+                                src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }} avatar"></a>
+                        </li>
+                    </div>
                 {% endif %}
+            </div>
             {% endif %}
+            
         </nav>
     </header>
-
 
     {% if messages %}
         <div class="message-container">
@@ -153,27 +162,50 @@
 
 
     {% block footer %}
-        <footer class="footer">
-            <div class="logo-container">
-                <span>Dungeon</span> Dwellers
-                <i class="fa-solid fa-dice"></i>
-            </div>
-            <div class="footer-container container container-fluid">
-                <div class="footer-socials-container">
-                    <ul>
-                        <li>FB</li>
-                        <li>Insta</li>
-                        <li>Twitter</li>
-                        <li>YouTube</li>
-                    </ul>
-                </div>
-                <div class="nav-container">
-                    <ul>
-                        <li>About</li>
-                        <li>Home</li>
-                        <li>Contact</li>
-                        <li>Careers</li>
-                    </ul>
+        <footer class="footer mt-3 flex-shrink-0">
+            <div class="container p-responsive">
+                <div class="d-flex flex-wrap py-3 mb-3">
+                    <div class="col-12 col-lg-4 mb-3">
+                        <h3 class="logo-font">Dungeon Dwellers</h3>
+                    </div>
+                    <div class="col-6 col-sm-3 col-lg-2 mb-6 mb-md-2 pr-3 pr-lg-0 pl-lg-4">
+                        <h4 class="text-decoration-underline">Socials</h4>
+                        <ul>
+                            <li class="nav-link"><a href="https://www.instagram.com" class="nav-link" target="_blank" 
+                                aria-label="Link to instagram page(opens in new tab)">
+                                <i class="fa-brands fa-instagram icon"></i></a></li>
+                            <li class="nav-link"><a href="https://www.facebook.com/profile.php?id=61558423709057" class="nav-link" target="_blank" 
+                                aria-label="Link to facebook page(opens in new tab)">
+                                <i class="fa-brands fa-facebook icon"></i></a></li>
+                            <li class="nav-link"><a href="https://www.twitter.com" class="nav-link" target="_blank" 
+                                aria-label="Link to twitter page(opens in new tab)">
+                                <i class="fa-brands fa-twitter icon"></i></a></li>
+                            <li class="nav-link"><a href="https://www.youtube.com" class="nav-link" target="_blank" 
+                                aria-label="Link to youtube page(opens in new tab)">
+                                <i class="fa-brands fa-youtube icon"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-sm-3 col-lg-2 mb-6 mb-md-2 pr-3 pr-lg-0 pl-lg-4">
+                        <h4 class="text-decoration-underline">Company</h4>
+                        <ul>
+                            <li class="nav-link"><a href="{% url 'home' %}" class="nav-link"><i class="fa-solid fa-home"></i> Home</a></li>
+                            <li class="nav-link"><a href="" class="nav-link"><i class="fa-solid fa-scroll icon"></i>About Us</a></li>
+                            <li class="nav-link"><a href="" class="nav-link"><i class="fa-solid fa-envelope icon"></i>Contact</a></li>
+                            <li class="nav-link"><a href="" class="nav-link"><i class="fa-solid fa-chess-board icon"></i>Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-sm-3 col-lg-2 mb-6 mb-md-2 pr-3 pr-lg-0 pl-lg-4">
+                        <h4 class="text-decoration-underline">Developer</h4>
+                        <p>Enda Magennis &copy; 2024</p>
+                        <ul>
+                            <li class="nav-link"><a href="https://github.com/EndaMagennis" class="nav-link" target="_blank" 
+                                aria-label="Link to github page(opens in new tab)"> <i class="fa-brands fa-github icon"></i> GitHub</a>
+                            </li>
+                            <li class="nav-link"><a href="https://www.linkedin.com/in/enda-magennis-5414661b4/" class="nav-link" target="_blank" 
+                                aria-label="Link to github page(opens in new tab)"> <i class="fa-brands fa-linkedin icon"></i> LinkeIn</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </footer>

@@ -11,7 +11,7 @@ def index(request):
 
     template = 'home/index.html'
     context = {
-
+        
     }
     if request.GET:
         query = request.GET.get('search-input')
