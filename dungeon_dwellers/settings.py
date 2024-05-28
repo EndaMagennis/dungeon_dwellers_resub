@@ -16,6 +16,7 @@ import os
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import dj_database_url
 
 if os.path.exists('env.py'):
     import env
@@ -39,7 +40,6 @@ ALLOWED_HOSTS = [
     '.gitpod.io',
     '.herokuapp.com'
 ]
-
 
 # Application definition
 
@@ -128,15 +128,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
-    }
-}
 
 # CSRF origins
 
@@ -215,9 +207,20 @@ STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 # Email
-if DEBUG == True:
+if 'DEVELOPMENT' in os.environ:
+    print('Development environment')
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'dungeon_dwellers@example.com'
+
+    # Database
+    # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+        }
+    }
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USE_TLS = True
@@ -226,5 +229,10 @@ else:
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+
+    DATABASES = {
+    'default':
+        dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
