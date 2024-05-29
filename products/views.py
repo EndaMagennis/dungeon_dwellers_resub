@@ -4,7 +4,8 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.views.generic.edit import DeleteView
-from .models import Product, Category, Tag, ProductImage
+from .models import Product,Category, Tag, ProductImage
+from wishlist.models import Wishlist
 from .forms import ProductForm
 from django.contrib import messages
 
@@ -18,6 +19,7 @@ class ProductListView(View):
         products = p.get_page(page)
         query = None
         categories = Category.objects.all()
+        wishlist = Wishlist.objects.filter(user=request.user)
         tags = Tag.objects.all()
 
         template = 'products/products_view.html'
@@ -49,6 +51,7 @@ class ProductListView(View):
             'products': products,
             'categories': categories,
             'tags': tags,
+            'wishlist': wishlist,
         }
 
         return render(request, template, context)
@@ -223,7 +226,7 @@ class ProductImageAddView(View):
         return render(request, template, context)
 
     def post(self, request, *args, **kwargs):
-        image_form = ProductImageForm(request.POST, request.FILES)
+        image_form = ProductForm(request.POST, request.FILES)
         if image_form.is_valid():
             product = request.POST.get('product')
             image = request.FILES.get('image')
@@ -232,7 +235,6 @@ class ProductImageAddView(View):
             image.save()
             return redirect('products')
         context = {
-            'product_form': product_form,
             'image_form': image_form,
         }
         return render(request, 'products/products.html', context)

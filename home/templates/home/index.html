@@ -6,7 +6,7 @@
 {% block content %}
     <div class="row home-content-container mx-2">
         <div class="col-12">
-            <div class="row welcome-banner blue-light rounded-1 my-3">
+            <div class="row welcome-banner blue-light-bg rounded-1 my-3">
                 <div class="col-12 my-3">
                     <h1 class="text-center">Welcome to Dungeon Dwellers!</h1>
                     <p class="text-center">Your one-stop shop for all things tabletop RPG!</p>
@@ -26,3 +26,52 @@
     </div>
 {% endblock %}
 
+{% block footer %}
+    <footer class="footer mt-3 flex-shrink-0">
+        <div class="container p-responsive">
+            <div class="d-flex flex-wrap py-3 mb-3">
+                <div class="col-12 col-lg-4 mb-3">
+                    <h3 class="logo-font">Dungeon Dwellers</h3>
+                </div>
+                <div class="col-6 col-sm-3 col-lg-2 mb-6 mb-md-2 pr-3 pr-lg-0 pl-lg-4">
+                    <h4 class="text-decoration-underline">Socials</h4>
+                    <ul>
+                        <li class="nav-link"><a href="https://www.instagram.com" class="nav-link" target="_blank" 
+                            aria-label="Link to instagram page(opens in new tab)">
+                            <i class="fa-brands fa-instagram icon"></i></a></li>
+                        <li class="nav-link"><a href="https://www.facebook.com/profile.php?id=61558423709057" class="nav-link" target="_blank" 
+                            aria-label="Link to facebook page(opens in new tab)">
+                            <i class="fa-brands fa-facebook icon"></i></a></li>
+                        <li class="nav-link"><a href="https://www.twitter.com" class="nav-link" target="_blank" 
+                            aria-label="Link to twitter page(opens in new tab)">
+                            <i class="fa-brands fa-twitter icon"></i></a></li>
+                        <li class="nav-link"><a href="https://www.youtube.com" class="nav-link" target="_blank" 
+                            aria-label="Link to youtube page(opens in new tab)">
+                            <i class="fa-brands fa-youtube icon"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-sm-3 col-lg-2 mb-6 mb-md-2 pr-3 pr-lg-0 pl-lg-4">
+                    <h4 class="text-decoration-underline">Company</h4>
+                    <ul>
+                        <li class="nav-link"><a href="{% url 'home' %}" class="nav-link"><i class="fa-solid fa-home"></i> Home</a></li>
+                        <li class="nav-link"><a href="" class="nav-link"><i class="fa-solid fa-scroll icon"></i>About Us</a></li>
+                        <li class="nav-link"><a href="" class="nav-link"><i class="fa-solid fa-envelope icon"></i>Contact</a></li>
+                        <li class="nav-link"><a href="" class="nav-link"><i class="fa-solid fa-chess-board icon"></i>Careers</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-sm-3 col-lg-2 mb-6 mb-md-2 pr-3 pr-lg-0 pl-lg-4">
+                    <h4 class="text-decoration-underline">Developer</h4>
+                    <p>Enda Magennis &copy; 2024</p>
+                    <ul>
+                        <li class="nav-link"><a href="https://github.com/EndaMagennis" class="nav-link" target="_blank" 
+                            aria-label="Link to github page(opens in new tab)"> <i class="fa-brands fa-github icon"></i> GitHub</a>
+                        </li>
+                        <li class="nav-link"><a href="https://www.linkedin.com/in/enda-magennis-5414661b4/" class="nav-link" target="_blank" 
+                            aria-label="Link to github page(opens in new tab)"> <i class="fa-brands fa-linkedin icon"></i> LinkeIn</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

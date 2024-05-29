@@ -52,7 +52,7 @@
                                 <button type="submit" class="blue-light btn btn-sm" data-toggle="tooltip" title="{{ product.category.friendly_name }}" aria-label="button for {{ product.category.friendly_name }} whcih will return a page of products in that category">{{ product.category.friendly_name | truncatechars:10 }}</button>
                             </form>
                             <button class="col-3 add-to-wishlist btn btn-sm d-inline float-right" data-id="{{ product.id }}">
-                                {% if product.id in wishlist.all %}
+                                {% if product in user.wishlist.products.all %}
                                     <i class="fa-solid fa-heart"></i>
                                 {% else %}
                                     <i class="fa-regular fa-heart"></i>
@@ -118,10 +118,6 @@
         </div>
         {% endif %}
 </div>
-
-{% endblock %}
-
-{% block footer %}
 {% endblock %}
 
 {% block postload_js %}
@@ -134,6 +130,7 @@
                 let productId = $(this).data('id');
                 e.stopPropagation();
                 e.preventDefault();
+                $(this).attr('disabled', true);
                 $(this).parent().parent().append('<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>');
                 $.ajax({
                     type: 'POST',
@@ -145,9 +142,11 @@
                     dataType: 'json',
                     success: function (data) {
                         $(this).parent().find('.spinner-border').remove();
+                        //enable button
+                        $(this).attr('disabled', false);
                         setTimeout(function() {
                             location.reload();
-                        }, 1000);
+                        }, 200);
                     },
                     error: function (data) {
                         console.log('error');

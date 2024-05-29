@@ -133,8 +133,13 @@ body {
     color: var(--clr-white);
 }
 
-.black-text {
-    color: var(--clr-black);
+.blue-light-text {
+    color: var(--clr-blue-light);
+}
+
+.blue-light-bg {
+    background-color: var(--clr-blue-light-50);
+    color: var(--clr-white-75);
 }
 
 .blue-light {
@@ -151,6 +156,11 @@ body {
 
 .black-text {
     color: var(--clr-black);
+}
+
+.black-bg {
+    background-color: var(--clr-black);
+    color: var(--clr-white);
 }
 
 .black {
@@ -487,6 +497,7 @@ footer {
     color: var(--clr-white);
     padding: 0.5em;
     width: 100%;
+    height: fit-content;
     align-items: center;
     margin-bottom: 0;
 }
