@@ -116,7 +116,7 @@
                     <div class="">
                         <li class="nav-link">
                             <a href="{% url 'profile' user=request.user %}"><img class="profile-icon" 
-                                src="{{ MEDIA_URL }}default_pfp.jpg" alt="{{ user.username }} avatar"></a>
+                                src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }} avatar"></a>
                         </li>
                     </div>
                 {% endif %}
