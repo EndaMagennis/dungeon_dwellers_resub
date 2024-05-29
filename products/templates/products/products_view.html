@@ -51,6 +51,7 @@
                                 <input type="hidden" placeholder="Search" aria-label="Search" name="search-input" value="{{ product.category.friendly_name }}">
                                 <button type="submit" class="blue-light btn btn-sm" data-toggle="tooltip" title="{{ product.category.friendly_name }}" aria-label="button for {{ product.category.friendly_name }} whcih will return a page of products in that category">{{ product.category.friendly_name | truncatechars:10 }}</button>
                             </form>
+                            {% if user.is_authenticated %}
                             <button class="col-3 add-to-wishlist btn btn-sm d-inline float-right" data-id="{{ product.id }}">
                                 {% if product in user.wishlist.products.all %}
                                     <i class="fa-solid fa-heart"></i>
@@ -58,6 +59,7 @@
                                     <i class="fa-regular fa-heart"></i>
                                 {% endif %}
                             </button>
+                            {% endif %}
                             <hr>
 
                             <p class="card-text">{{ product.description|safe|truncatewords:10 }}</p><hr>
@@ -84,7 +86,7 @@
                         </div>
                         {% if user.is_authenticated and user.is_superuser %}
                         <div class="card-footer d-flex justify-content-center ">
-                            <a href="{% url 'delete_product' product.id %}" class="btn red btn-sm m-1" data-toggle="tooltip" title="Delete Product {{ product.name }}" aria-label="delete product {{ product.name }}"><i class="fa-solid fa-trash"></i></a>
+                            <a href="{% url 'delete_product' product.id %}" data-id="{{ product.id }}" class="btn red btn-sm m-1" data-toggle="tooltip" title="Delete Product {{ product.name }}" aria-label="delete product {{ product.name }}"><i class="fa-solid fa-trash"></i></button>
                             <a href="{% url 'edit_product' product.id %}" class="btn green btn-sm m-1" data-toggle="tooltip" title="Edit Product {{ product.name }}" aria-label="edit product {{ product.name }}"><i class="fa-solid fa-pen"></i></a>
                         </div>
                         {% endif %}
@@ -92,11 +94,11 @@
                     {% endfor %}
                 {% else %}
                 <div class="col-12">
-                    <p>No products found.</p>
+                    <p>No treasures found.</p>
+                    <a href="{% url 'home' %}" class="btn black">Visit again soon!</a>
                 </div>
                 {% endif %}
             </div>
-            
         </div>
     </div>
     {% if products.paginator.num_pages %}
@@ -116,7 +118,10 @@
                 </span>
             </div>
         </div>
-        {% endif %}
+    {% endif %}
+
+    <!-- Modal -->
+    
 </div>
 {% endblock %}
 

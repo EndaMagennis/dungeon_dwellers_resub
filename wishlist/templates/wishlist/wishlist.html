@@ -32,7 +32,7 @@
                                 </a>
                             {% else %}
                                 <a href="{% url 'product_detail' product.id %}" data-toggle="tooltip" title="Go to details for {{ product.name }}"  aria-label="link to product details page for {{ product.name }}">
-                                    <img src="{% static 'images/default_product.jpg' %}" class="card-img-top img-fluid product-image" alt="{{ product.name }}">
+                                    <img src="{{ MEDIA_URL }}no-image-placeholder.png" class="card-img-top img-fluid product-image" alt="{{ product.name }}">
                                 </a>
                             {% endif %}
                         </div>
@@ -75,7 +75,7 @@
                     </div>
                     {% endfor %}
                 {% else %}
-                <div class="col-12">
+                <div class="col-12 my-5">
                     <p>No treasures found.</p>
                     <a href="{% url 'products' %}" class="btn black">Add some now!</a>
                 </div>

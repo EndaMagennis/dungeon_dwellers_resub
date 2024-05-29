@@ -8,7 +8,7 @@ from products.models import Product
 from profiles.models import Profile, Address
 
 import json
-import stripe
+import stripe 
 import time
 
 class StripeWH_Handler:

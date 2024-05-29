@@ -14,16 +14,23 @@ class ProductListView(View):
     """ A view to return the home page """
     
     def get(self, request, *args, **kwargs):
-        p = Paginator(Product.objects.all(), 6)
+        # Get the user's wishlist if they are logged in
+        if request.user.is_authenticated:
+            wishlist = Wishlist.objects.filter(user=request.user)
+        else:
+            wishlist = None
+        # Get all products and paginate them
+        p = Paginator(Product.objects.all(), 10)
         page = request.GET.get('page')
         products = p.get_page(page)
         query = None
+
         categories = Category.objects.all()
-        wishlist = Wishlist.objects.filter(user=request.user)
         tags = Tag.objects.all()
 
         template = 'products/products_view.html'
 
+        # If the user has searched for a product
         if request.GET:
             query = request.GET.get('search-input')
             promo = request.GET.get('promo-input')
@@ -40,6 +47,7 @@ class ProductListView(View):
                     'tags': tags,
                     'query': query,
                 }
+            # If the user has searched for a product that is on sale
             if promo:
                 products = Product.objects.filter(is_featured=True)
 
@@ -200,7 +208,6 @@ class ProductDeleteView(DeleteView):
         messages.success(request, 'Product deleted!')
         return redirect(reverse('products'))
 
-        return render(request, 'products/products_view.html')
 
 
 class ProductImageAddView(View):

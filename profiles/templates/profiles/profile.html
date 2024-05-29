@@ -14,7 +14,7 @@
                 {% if user.profile.avatar.url %}
                     <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}'s profile picture" class="avatar img-fluid img-round">
                 {% else %}
-                    <img src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }}'s profile picture" class="avatar img-fluid img-round">
+                    <img src="{{ MEDIA_URL }}default_pfp.jpg" alt="{{ user.username }}'s profile picture" class="avatar img-fluid img-round">
                 {% endif %}
                 <a href="#" class="btn white btn-sm m-1" id="ajax-edit-avatar-btn"><i class="fa fa-camera"></i></a>
             </div>

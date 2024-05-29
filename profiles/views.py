@@ -27,6 +27,7 @@ class ProfileView(View):
             }
             return render(request, 'profiles/profile.html', context)
         else:
+            messages.error(request, 'You need to be logged in to view your profile')
             return render(request, 'home/index.html')
 
 
@@ -36,17 +37,25 @@ class EditAvatarAjaxView(View):
     def post(self, request, *args, **kwargs):
         is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
-        if is_ajax:
+        if request.user.is_authenticated and is_ajax:
             avatar = request.FILES.get('avatar')
             profile = get_object_or_404(Profile, user=request.user)
             profile.avatar = avatar
             profile.save()
             return redirect(reverse('profile', args=[request.user.username]))
+        else:
+            messages.error(request, 'You need to be logged in to edit your avatar')
+            return render(request, 'home/index.html')
     
 
 class ProfileUpdateView(View):
     """View for updating user profile"""
     def get(self, request, *args, **kwargs):
+        
+        if not request.user.is_authenticated:
+            messages.error(request, 'You need to be logged in to update your profile')
+            return render(request, 'home/index.html')
+        
         profile = get_object_or_404(Profile, user=request.user)
         address = get_object_or_404(Address, user=request.user, is_default=True)
         profile_form = ProfileForm(instance=profile)
@@ -69,8 +78,7 @@ class ProfileUpdateView(View):
             address.user = request.user
             address.save()
             profile_form.save()
-            messages.success(request, 'Profile updated successfully')
-            messages.success(request, 'Address created successfully')
+            messages.success(request, 'Profile and Address updated successfully')
             return redirect(reverse('profile', args=[request.user.username]))
         context = {
             'profile': profile,

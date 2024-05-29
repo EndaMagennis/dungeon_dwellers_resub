@@ -13,7 +13,6 @@ def view_bag(request):
 
     return render(request, 'bag/bag.html')
 
-
 def add_to_bag(request, item_id):
     """Add product to the shopping bag"""
     product = get_object_or_404(Product, pk=item_id)
@@ -29,7 +28,6 @@ def add_to_bag(request, item_id):
 
     request.session['bag'] = bag
     return redirect('view_bag')
-
 
 def adjust_bag(request, item_id):
     """Adjust quantity of select product in bag"""
@@ -63,5 +61,3 @@ def remove_from_bag(request, item_id):
         return HttpResponse(status=200)
     except Exception as e:
         return HttpResponse(status=500)
-    
-    

@@ -11,8 +11,6 @@ from profiles.forms import ProfileForm, AddressForm
 from bag.contexts import bag_contents
 
 from checkout.webhook_handler import StripeWH_Handler
-
-
 import stripe
 import json
 
@@ -34,6 +32,7 @@ def cache_checkout_data(request):
 
 
 def checkout(request):
+   
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
