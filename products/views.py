@@ -213,12 +213,10 @@ class ProductImageAddView(View):
 
         product = get_object_or_404(Product, pk=product_id)
         product_image = ProductImage()
-        image_form = ProductImageForm()
         
         context = {
             'product': product,
             'product_image': product_image,
-            'image_form': image_form
         }
 
         template = 'products/product_image_add.html'

@@ -13,7 +13,7 @@ Your plunder will be shipped to {{ order.address_line_1 }} in {{ order.city }}, 
 
 Should you need any insights, send a raven to us at {{ contact_email }}.
 
-Cheers and may your adventure br long and fruitful!
+Cheers and may your adventure be long and fruitful!
 
 Sincerely,
 

@@ -10,6 +10,9 @@ from profiles.models import Profile, Address
 from profiles.forms import ProfileForm, AddressForm
 from bag.contexts import bag_contents
 
+from checkout.webhook_handler import StripeWH_Handler
+
+
 import stripe
 import json
 
@@ -147,7 +150,8 @@ def checkout_success(request, order_number):
     """
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
-    print("Success")
+    handler = StripeWH_Handler(request)
+
     if request.user.is_authenticated:
         profile = Profile.objects.get(user=request.user)
         address = Address.objects.get(user=request.user, is_default=True)
@@ -179,6 +183,8 @@ def checkout_success(request, order_number):
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')
+
+    handler._send_confirmation_email(order)
 
     if 'bag' in request.session:
         del request.session['bag']
