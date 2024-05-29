@@ -76,10 +76,10 @@ class ProductDetailView(View):
         tags = Tag.objects.all()
 
         product = get_object_or_404(Product, id=product_id)
+        
         images = ProductImage.objects.filter(
             product = product,
         )
-
         template = 'products/product_detail.html'
 
         context = {
@@ -104,6 +104,7 @@ class ProductDetailView(View):
                     'query': query,
                 }
                 template = 'products/products_view.html'
+            
             if promo:
                 products = Product.objects.filter(is_featured=True)
 

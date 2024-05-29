@@ -18,39 +18,20 @@
 ## UX
 
 
-### User Stories
+### User Stories and project boards
 
-The ids in the tables below, link to a corresponding issue on a project board.
+[User Stories Project Board](https://github.com/users/EndaMagennis/projects/14)
 
-[User Stories Project Board](https://github.com/users/EndaMagennis/projects/5/views/1)
+[Home Page Project Board](https://github.com/users/EndaMagennis/projects/13)
 
-[Products Project Board](https://github.com/users/EndaMagennis/projects/10/views/1)
+[Products Project Board](https://github.com/users/EndaMagennis/projects/17)
 
-[Profile Project Board](https://github.com/users/EndaMagennis/projects/8/views/1)
+[Profile Project Board](https://github.com/users/EndaMagennis/projects/18)
+
+[Bag Project Board](https://github.com/users/EndaMagennis/projects/19)
 
 [Wishlist Project Board](https://github.com/users/EndaMagennis/projects/9)
 
-
-#### Site User
-
-|id|user|feature|reason|finished?|
-|-|-|-|-|-|
-|[1](https://github.com/users/EndaMagennis/projects/5/views/1?pane=issue&itemId=56446212)|Site user|Intuative Design|Understand the layout and design of the website|Y|
-|[2](https://github.com/users/EndaMagennis/projects/5/views/1?pane=issue&itemId=57253107)|Site user| Account Registration | Use additional features|Y|
-|[3](https://github.com/users/EndaMagennis/projects/5/views/1?pane=issue&itemId=57253621)|Site User|Navigation|Use navigable links to peruse the site|Y|
-|[4](https://github.com/users/EndaMagennis/projects/5/views/1?pane=issue&itemId=58526031)|Site User|Search bar| Can filter results on more relevant seraches|Y|
-|[5](https://github.com/users/EndaMagennis/projects/5?pane=issue&itemId=57872462)|Site User|Save default user data|To avoid neeeding to fill order forms each time|Y|
-|[6](https://github.com/users/EndaMagennis/projects/5?pane=issue&itemId=58519637)|Site User|Add items to a wishlist|To return to later without needing to buy immediately| Y|
-|[7](https://github.com/users/EndaMagennis/projects/5/views/1?pane=issue&itemId=57256491)|Site User|Filtering by attributes|To order the items based on price and other attributes|N|
-|[8](https://github.com/users/EndaMagennis/projects/5/views/1?pane=issue&itemId=57879979)|Site User|Updating Shopping Cart|Keep a running total of items while still allowing to browse the site|Y|
-|[9](https://github.com/users/EndaMagennis/projects/5/views/1?pane=issue&itemId=58525298)|Site User|Messages notify of certain actions|To know that actions have taken place|Y|
-|[10](https://github.com/users/EndaMagennis/projects/5/views/1?pane=issue&itemId=57873555)|Site user|Update profile data|So that I can update username and address|Y|
-|[11](https://github.com/users/EndaMagennis/projects/5/views/1?pane=issue&itemId=58526346)|Site User|See order history on profile|to keep track of my purchases|N|
-|[12](https://github.com/users/EndaMagennis/projects/5/views/1?pane=issue&itemId=59386779)|Site User|Make Secure Payments|So that I can purchase items directly from the site|Functional but always returns error w/handling|
-
-## Major Stumbling Blocks
-
-Twice during this project, I ran into issues with the database where the only solution was to flush the data and start again. The current repo is actually the second attempt at this project, which is why there are more issues on the project boards than represented in the github repo. 
 
 ## Business model
 
@@ -104,9 +85,9 @@ Additionally, Facebook offer many options for boosting engagement and SEO, both 
 
 - ### Database:
   
-  - [SQLite](https://www.sqlite.org/): was used as a development database.
+  - [SQLite](https://www.sqlite.org/): was used as a development database
 
-  - [CI Database Maker](https://dbs.ci-dbs.net/): a cloud based postgreSQL database
+  - [CI Database Maker](https://dbs.ci-dbs.net/): a wrapper for psql which creates PostgreSQL databases
 
 - ### Other Tools and Dependencies
   - [Git](https://git-scm.com/): version control for continuous development
@@ -120,6 +101,7 @@ Additionally, Facebook offer many options for boosting engagement and SEO, both 
   - [VSCode](https://code.visualstudio.com/): Local IDE used as backup
   - [Chrome DevTools](https://developer.chrome.com/docs/devtools/open/): used to debug 
   - [Font Awesome](https://fontawesome.com/): used to supply icons
+  - [Coolers](https://coolors.co/): used to generate a pallette for more consistent styling
   - [Image Extractor](https://extract.pics/): used to scrape images from websites used within the project
   - [W3C Validator](https://validator.w3.org/): HTML validator
   - [W3C CSS validator](https://jigsaw.w3.org/css-validator/): CSS validator
@@ -160,11 +142,25 @@ Please refer to the [TESTING.md](TESTING.md) file for testing
     ![bag view](documentation/wireframes/bag_view.png)
 
 
+- ### Colour 
+
+For the colours, I chose a muted palette to reflect an aged look, to promote the idea of an old shop that an adventurer might stumble across on their travels. I created variables within the base.css to generate various opacities of the base colours shown below and used them throughout the project, even substituting them for bootstrap's own colour classes.
+
+![Color palette](documentation/images/palette.png)
+
+
+- ### Typography
+
+To continue the theme of an old shop holding treasures unknown, I used a [google fonts](https://fonts.google.com/) font, "MedievalSharp" which is stylized like an old font, but is still readable
+
+![Typography](documentation/images/typography.png)
+
 ## Information Architecture
 
 ### Database
 
-- The database was created and hosted on [ElephantSQL](https://www.elephantsql.com/)
+- During Debug and development phase, [SQLite3](https://www.sqlite.org/index.html) was used
+- For the deployed site, [CI Database Maker](https://dbs.ci-dbs.net/) was used
 
 ### Entity Relationship Diagram
 
@@ -180,7 +176,7 @@ Please refer to [TESTING.md](TESTING.md)
 ## Deployment
 
 - The site was deployed using [Heroku](https://id.heroku.com/login)
-- The database was deployed to [ElephantSQL](https://www.elephantsql.com/)
+- The database was deployed to [CI Database Maker](https://dbs.ci-dbs.net/)
 - The app is available [here](https://board-ohm-5d4ddb906f72.herokuapp.com/)
 
 ## Credits

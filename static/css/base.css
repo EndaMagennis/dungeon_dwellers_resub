@@ -44,7 +44,7 @@ body {
     background-size: cover;
     overflow-x: hidden;
     color: var(--clr-black);
-    font-family: "MedievalSharp";
+    font-family: "MedievalSharp", sans-serif;
 
 }
 

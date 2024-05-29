@@ -10,9 +10,9 @@
 <div class="overlay"></div>
     <div class="form-container container-fluid rounded-1 black-bg p-2 mt-3 w-75">
         <div class="my-3 edit-header-container text-center text-light">
-            <h2>Add a New Product</h2>
+            <h2>Edit {{ product.name }}</h2>
         </div>
-        <form class="form-control product-form grey black-text" method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data" id="product-form">
+        <form class="form-control product-form grey black-text" method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data" id="product-form">
                 {% csrf_token %}
                 {{ product_form | crispy }}
                 <button class="btn blue-button">Submit</button>

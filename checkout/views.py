@@ -106,7 +106,6 @@ def checkout(request):
         )
         print(intent)
 
-
         if request.user.is_authenticated:
             try:
                 profile = Profile.objects.get(user=request.user)

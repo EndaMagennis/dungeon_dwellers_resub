@@ -39,7 +39,49 @@
             <div class="details-container rounded-1 col-lg-7 col-md-11 offset-1 white-text m-2">
                 <h3><strong>Product Name: </strong>{{ product.name }}</h3>
                 <h4><strong>Price: </strong>€{{ product.price }}</h4>
-                <div class="tags mb-1">
+                <table class="table-responsive w-100">
+                    <tr>
+                        <td>Publisher</td>
+                        <td>Year</td>
+                        <td>Players</td>
+                        <td>Age</td>
+                        <td>Play Time</td>
+                        <td>Difficulty</td>
+                    </tr>
+                    <tr>
+                        {% if product.publisher != null %}
+                            <td>{{ product.publisher }}</td>
+                        {% else %}
+                            <td>N/A</td>
+                        {% endif %}
+                        {% if product.year != null %}
+                            <td>{{ product.year }}</td>
+                        {% else %}
+                            <td>N/A</td>
+                        {% endif %}
+                        {% if product.min_players and product.max_players != null %}
+                            <td><i class="icon fa-solid fa-people-group"></i> {{ product.min_players }}-{{ product.max_players }}</td>
+                        {% else %}
+                            <td>N/A</td>
+                        {% endif %}
+                        {% if product.min_age != null %}
+                            <td>{{ product.min_age }} +</td>
+                        {% else %}
+                            <td>N/A</td>
+                        {% endif %}
+                        {% if product.play_time != null %}
+                            <td><i class="icon fa-solid fa-clock"></i> {{ product.play_time }}mins</td>
+                        {% else %}
+                            <td>N/A</td>
+                        {% endif %}
+                        {% if product.difficulty != null %}
+                            <td>{{ product.difficulty }}/5</td>
+                        {% else %}
+                            <td>N/A</td>
+                        {% endif %}
+                    </tr>
+                </table>
+                <div class="tags">
                     <h5><strong>Tags: </strong></h5>
                     <div class="tags-container m-0 d-flex flex-wrap">
                         {% for tag in product.tags.all %}
