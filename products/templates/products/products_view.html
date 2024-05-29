@@ -15,7 +15,8 @@
         <div class="col-12">
             {% if user.is_authenticated and user.is_superuser %}
                 <div class="add-product-container d-flex align-items-center justify-content-center">
-                    <a href="{% url 'add_product' %}" class="btn btn-sm blue" data-toggle="tooltip" title="Add a new product" aria-label="Add product button(internal link to product form)"><i class="fa-solid fa-plus"></i> Add product</a>
+                    <a href="{% url 'add_product' %}" class="btn btn-sm blue" data-toggle="tooltip" title="Add a new product" 
+                        aria-label="Add product button(internal link to product form)"><i class="fa-solid fa-plus"></i> Add product</a>
                 </div>
             {% endif %}
             <div class="row card-container">
@@ -25,21 +26,25 @@
                         <div class="product-image-container p-1 m-1">
                             {% if user.is_authenticated and user.is_superuser %}
                                 {% if product.get_all_images %}
-                                    <a href="{% url 'product_detail' product.id %}" data-toggle="tooltip" title="Go to details for {{ product.name }}" aria-label="link to product details page for {{ product.name }}">
+                                    <a href="{% url 'product_detail' product.id %}" data-toggle="tooltip" title="Go to details for {{ product.name }}" 
+                                        aria-label="link to product details page for {{ product.name }}">
                                         <img src="{{ product.get_main_image.image.url }}" alt="{{ product.name }}" class="card-img-top img-fluid product-image">
                                     </a>
                                 {% else %}
-                                    <a href="{% url 'product_detail' product.id %}" data-toggle="tooltip" title="Go to details for {{ product.name }}"  aria-label="link to product details page for {{ product.name }}">
+                                    <a href="{% url 'product_detail' product.id %}" data-toggle="tooltip" title="Go to details for {{ product.name }}"  
+                                        aria-label="link to product details page for {{ product.name }}">
                                         <img src="{% static 'images/no-image-placeholder.png' %}"  class="card-img-top img-fluid product-image" alt="{{ product.name }}">
                                     </a>
                                 {% endif %}
                             {% else %}
                                 {% if product.get_all_images %}
-                                    <a href="{% url 'product_detail' product.id %}" data-toggle="tooltip" title="Go to details for {{ product.name }}"  aria-label="link to product details page for {{ product.name }}">
+                                    <a href="{% url 'product_detail' product.id %}" data-toggle="tooltip" title="Go to details for {{ product.name }}"  
+                                        aria-label="link to product details page for {{ product.name }}">
                                         <img src="{{ product.get_main_image.image.url }}" alt="{{ product.name }}" class="card-img-top img-fluid product-image">
                                     </a>
                                 {% else %}
-                                    <a href="{% url 'product_detail' product.id %}" data-toggle="tooltip" title="Go to details for {{ product.name }}"  aria-label="link to product details page for {{ product.name }}">
+                                    <a href="{% url 'product_detail' product.id %}" data-toggle="tooltip" title="Go to details for {{ product.name }}"  
+                                        aria-label="link to product details page for {{ product.name }}">
                                         <img src="{% static 'images/no-image-placeholder.png' %}" class="card-img-top img-fluid product-image" alt="{{ product.name }}">
                                     </a>
                                 {% endif %}
@@ -52,7 +57,7 @@
                                 <button type="submit" class="blue-light btn btn-sm" data-toggle="tooltip" title="{{ product.category.friendly_name }}" aria-label="button for {{ product.category.friendly_name }} whcih will return a page of products in that category">{{ product.category.friendly_name | truncatechars:10 }}</button>
                             </form>
                             {% if user.is_authenticated %}
-                            <button class="col-3 add-to-wishlist btn btn-sm d-inline float-right" data-id="{{ product.id }}">
+                            <button class="col-3 add-to-wishlist btn btn-sm d-inline float-right" data-id="{{ product.id }}" aria-label="add product to wishlist">
                                 {% if product in user.wishlist.products.all %}
                                     <i class="fa-solid fa-heart"></i>
                                 {% else %}
@@ -86,8 +91,12 @@
                         </div>
                         {% if user.is_authenticated and user.is_superuser %}
                         <div class="card-footer d-flex justify-content-center ">
-                            <a href="{% url 'delete_product' product.id %}" data-id="{{ product.id }}" class="btn red btn-sm m-1" data-toggle="tooltip" title="Delete Product {{ product.name }}" aria-label="delete product {{ product.name }}"><i class="fa-solid fa-trash"></i></button>
-                            <a href="{% url 'edit_product' product.id %}" class="btn green btn-sm m-1" data-toggle="tooltip" title="Edit Product {{ product.name }}" aria-label="edit product {{ product.name }}"><i class="fa-solid fa-pen"></i></a>
+                            <a href="{% url 'delete_product' product.id %}" data-id="{{ product.id }}" class="btn red btn-sm m-1" data-toggle="tooltip" 
+                                title="Delete Product {{ product.name }}" aria-label="delete product {{ product.name }}"><i class="fa-solid fa-trash"></i>
+                            </a>
+                            <a href="{% url 'edit_product' product.id %}" class="btn green btn-sm m-1" data-toggle="tooltip" title="Edit Product {{ product.name }}"
+                                 aria-label="edit product {{ product.name }}"><i class="fa-solid fa-pen"></i>
+                            </a>
                         </div>
                         {% endif %}
                     </div>
@@ -95,7 +104,7 @@
                 {% else %}
                 <div class="col-12">
                     <p>No treasures found.</p>
-                    <a href="{% url 'home' %}" class="btn black">Visit again soon!</a>
+                    <a href="{% url 'home' %}" class="btn black" aria-label="vist again soon (redirects to home page)">Visit again soon!</a>
                 </div>
                 {% endif %}
             </div>
@@ -106,14 +115,21 @@
             <div class="pagination my-5 col p-3 justify-content-center">
                 <span class="page-links mr-2">
                     {% if products.has_previous %}
-                        <a href="?page=1" class="btn btn-dark" data-toggle="tooltip" title="Jump to First page"><i class="fa fa-caret-left" aria-label="Go to first page of products"></i><i class="fa fa-caret-left"></i> First</a>
-                        <a href="?page={{ products.previous_page_number }}" class="btn btn-dark" data-toggle="tooltip" title="Jump to previous page of products" aria-label="Go to previous page of products"><i class="fa fa-caret-left"></i> Previous</a>
+                        <a href="?page=1" class="btn btn-dark" data-toggle="tooltip" title="Jump to First page" aria-label="Go to first page of products">
+                            <i class="fa fa-caret-left"></i><i class="fa fa-caret-left"></i> First</a>
+                        <a href="?page={{ products.previous_page_number }}" class="btn btn-dark" data-toggle="tooltip" title="Jump to previous page of products" 
+                            aria-label="Go to previous page of products">
+                            <i class="fa fa-caret-left"></i> Previous</a>
                     {% endif %}
                 </span>
                 <span class="page-links ml-2">
                     {% if products.has_next %}
-                        <a href="?page={{ products.next_page_number }}" class="btn btn-dark" data-toggle="tooltip" title="Jump to next page of products" aria-label="Go to next page of products">Next <i class="fa fa-caret-right"></i></a>
-                        <a href="?page={{ products.paginator.num_pages }}" class="btn btn-dark" class="btn btn-dark" data-toggle="tooltip" title="Jump to final page of products" aria-label="Go to final page of products">Last <i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></a>
+                        <a href="?page={{ products.next_page_number }}" class="btn btn-dark" data-toggle="tooltip" title="Jump to next page of products" 
+                        aria-label="Go to next page of products">Next 
+                            <i class="fa fa-caret-right"></i></a>
+                        <a href="?page={{ products.paginator.num_pages }}" class="btn btn-dark" class="btn btn-dark" data-toggle="tooltip" 
+                            title="Jump to final page of products" aria-label="Go to final page of products">Last 
+                            <i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></a>
                     {% endif %}
                 </span>
             </div>

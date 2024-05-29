@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-10 offset-1">
                             <h3 class="">Ready to start your adventure?</h3>
-                            <a href="{% url 'products' %}" class="shop-now-button btn">Shop now</a>
+                            <a href="{% url 'products' %}" class="shop-now-button btn" aria-label="shop now (redirects to new page)">Shop now</a>
                         </div>
                     </div>
                 </div>
@@ -37,24 +37,28 @@
                     <h4 class="text-decoration-underline">Socials</h4>
                     <ul>
                         <li class="nav-link"><a href="https://www.instagram.com" class="nav-link" target="_blank" 
-                            aria-label="Link to instagram page(opens in new tab)">
+                            aria-label="Link to instagram page(opens in new tab)" rel="nofollow noopener">
                             <i class="fa-brands fa-instagram icon"></i></a></li>
                         <li class="nav-link"><a href="https://www.facebook.com/profile.php?id=61558423709057" class="nav-link" target="_blank" 
-                            aria-label="Link to facebook page(opens in new tab)">
+                            aria-label="Link to facebook page(opens in new tab)" rel="nofollow noopener">
                             <i class="fa-brands fa-facebook icon"></i></a></li>
                         <li class="nav-link"><a href="https://www.twitter.com" class="nav-link" target="_blank" 
-                            aria-label="Link to twitter page(opens in new tab)">
+                            aria-label="Link to twitter page(opens in new tab)" rel="nofollow noopener">
                             <i class="fa-brands fa-twitter icon"></i></a></li>
                         <li class="nav-link"><a href="https://www.youtube.com" class="nav-link" target="_blank" 
-                            aria-label="Link to youtube page(opens in new tab)">
+                            aria-label="Link to youtube page(opens in new tab)" rel="nofollow noopener">
                             <i class="fa-brands fa-youtube icon"></i></a></li>
                     </ul>
                 </div>
                 <div class="col-6 col-sm-3 col-lg-2 mb-6 mb-md-2 pr-3 pr-lg-0 pl-lg-4">
                     <h4 class="text-decoration-underline">Company</h4>
                     <ul>
-                        <li class="nav-link"><a href="{% url 'home' %}" class="nav-link"><i class="fa-solid fa-home"></i> Home</a></li>
-                        <li class="nav-link"><a href="" class="nav-link"><i class="fa-solid fa-scroll icon"></i>About Us</a></li>
+                        <li class="nav-link">
+                            <a href="{% url 'home' %}" class="nav-link" aria-label="home page"><i class="fa-solid fa-home"></i> Home</a>
+                        </li>
+                        <li class="nav-link">
+                            <a href="" class="nav-link"><i class="fa-solid fa-scroll icon"></i>About Us</a>
+                        </li>
                         <li class="nav-link"><a href="" class="nav-link"><i class="fa-solid fa-envelope icon"></i>Contact</a></li>
                         <li class="nav-link"><a href="" class="nav-link"><i class="fa-solid fa-chess-board icon"></i>Careers</a></li>
                     </ul>
@@ -63,11 +67,13 @@
                     <h4 class="text-decoration-underline">Developer</h4>
                     <p>Enda Magennis &copy; 2024</p>
                     <ul>
-                        <li class="nav-link"><a href="https://github.com/EndaMagennis" class="nav-link" target="_blank" 
-                            aria-label="Link to github page(opens in new tab)"> <i class="fa-brands fa-github icon"></i> GitHub</a>
+                        <li class="nav-link">
+                            <a href="https://github.com/EndaMagennis" class="nav-link" target="_blank" 
+                            aria-label="Link to github page(opens in new tab)" rel="noopener nofolow"><i class="fa-brands fa-github icon"></i> GitHub</a>
                         </li>
-                        <li class="nav-link"><a href="https://www.linkedin.com/in/enda-magennis-5414661b4/" class="nav-link" target="_blank" 
-                            aria-label="Link to github page(opens in new tab)"> <i class="fa-brands fa-linkedin icon"></i> LinkeIn</a>
+                        <li class="nav-link">
+                            <a href="https://www.linkedin.com/in/enda-magennis-5414661b4/" class="nav-link" target="_blank" 
+                            aria-label="Link to github page(opens in new tab)" rel="noopener nofolow"><i class="fa-brands fa-linkedin icon"></i> LinkeIn</a>
                         </li>
                     </ul>
                 </div>

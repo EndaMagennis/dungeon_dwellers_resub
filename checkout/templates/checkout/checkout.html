@@ -26,7 +26,7 @@
                 {% for item in bag_items %}
                     <div class="row">
                         <div class="col-2 mb-1">
-                            <a href="{% url 'product_detail' item.product.id %}">
+                            <a href="{% url 'product_detail' item.product.id %}" aria-label="view product details (redirects to different page)">
                                 {% if item.product.get_all_images %}
                                     <img class="img-fluid" src="{{ item.product.get_main_image.image_url }}" alt="{{ product.name }}">
                                 {% else %}
@@ -84,8 +84,8 @@
                         <input type="checkbox" class="form-check-input ml-2 mr-0" id="id-save-info" name="save-info">
                         {% else %}
                         <label for="id-save-info" class="form-check-label">
-                            <a href="{% url 'account_signup' %}" class="text-info">Create an account</a> or
-                            <a href="{% url 'account_login' %}" class="text-info">Login</a> to save this info.
+                            <a href="{% url 'account_signup' %}" class="text-info" aria-label="create an account (redirects to different page)">Create an account</a> or
+                            <a href="{% url 'account_login' %}" class="text-info" aria-label="login (redirects to different page)">Login</a> to save this info.
                         </label>
                         {% endif %}
                     </div>
@@ -100,11 +100,11 @@
                     <input type="hidden" value="{{ client_secret }}" name="client_secret">
                 </fieldset>
                 <div class="submit-button-container text-right mb-3">
-                    <a href="{% url 'view_bag' %}" class="btn btn-outline-dark btn-sm rounded-0">
+                    <a href="{% url 'view_bag' %}" class="btn btn-outline-dark btn-sm rounded-0" aria-label="view bag (redirects to another page)">
                         <span class="icon"><i class="fa-solid fa-chevron-left"></i></span>
                         <span>Adjust Bag</span>
                     </a>
-                    <button type="submit" id="submit-button" class="btn btn-dark btn-sm rounded-0">
+                    <button type="submit" id="submit-button" class="btn btn-dark btn-sm rounded-0" aria-label="submit order and redirect to order summary">
                         <span class="font-weight-bold">Complete Order</span>
                         <span class="icon">
                             <i class="fas fa-lock"></i>

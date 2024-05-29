@@ -58,6 +58,10 @@ Due to being a niche store, the customer base would expect the store to compete 
 
 ## Web Marketing
 
+### Meta tags
+
+Meta tags were added to the template head to promote SEO
+
 ### facebook Business page
 
 Facebook, with over 3billion users is an obvious choice for web marketing.
@@ -66,6 +70,12 @@ Additionally, Facebook offer many options for boosting engagement and SEO, both 
 [Facebook Page](https://www.facebook.com/profile.php?id=61558423709057)
 
 ![Facebook business page](documentation/images/marketing-facebook.png)
+
+### Mock-up For a Newsletter
+
+### SiteMap.xml
+
+### Robots.txt
 
 
 ## Technologies Used

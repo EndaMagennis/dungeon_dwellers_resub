@@ -108,11 +108,12 @@
                     <p>{{ product.description|safe }}</p>
                 </div>
                 <div class="add-to-cart d-flex align-items-center">
-                    <a href="{% url 'products' %}" class="btn black rounded-1 m-1"><i class="fa-solid fa-chevron-left"></i> Continue Shopping</a>
+                    <a href="{% url 'products' %}" class="btn black rounded-1 m-1" aria-label="continue shopping (redirects to products)">
+                        <i class="fa-solid fa-chevron-left"></i> Continue Shopping</a>
                     <form method="POST" action="{% url 'add_to_bag' product.id %} " class="d-inline m-1">
                         {% csrf_token %}
                         <div class="form-row">
-                            <button type="submit" class="btn white rounded-1">Add to Bag</button>
+                            <button type="submit" class="btn white rounded-1" aria-label="add this item to bag">Add to Bag</button>
                         </div>
                     </form>
                 </div>

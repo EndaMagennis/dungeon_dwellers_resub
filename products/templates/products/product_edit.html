@@ -15,8 +15,8 @@
         <form class="form-control product-form grey black-text" method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data" id="product-form">
                 {% csrf_token %}
                 {{ product_form | crispy }}
-                <button class="btn blue-button">Submit</button>
-                <a href="{% url 'products' %}" class="btn black">Back To Products</a>
+                <button class="btn blue-button" aria-label="submit form">Submit</button>
+                <a href="{% url 'products' %}" class="btn black" aria-label="back to products">Back To Products</a>
         </form>
     </div>
 {% endblock %}

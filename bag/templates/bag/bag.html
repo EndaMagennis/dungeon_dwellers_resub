@@ -51,8 +51,9 @@
                                 </div>
                             </div>
                         </form>
-                        <a class="update-link blue-text"><small>Update</small></a>
-                        <a class="remove-item red-text float-right" id="remove_{{ item.item_id }}" data-product_dimensions="{{ item.dimensions }}"><small>Remove</small></a>
+                        <a class="update-link blue-text" aria-label="update the bag amount"><small>Update</small></a>
+                        <a class="remove-item red-text float-right" id="remove_{{ item.item_id }}" 
+                        data-product_dimensions="{{ item.dimensions }}" aria-label="remove this item from bag"><small>Remove</small></a>
                     </td>
                     <td class="py-3">
                         <p class="my-0">${{ item.product.price | calc_subtotal:item.quantity }}</p>
@@ -73,13 +74,13 @@
             </tr>
             <tr>
                 <td colspan="5" class="text-right">
-                    <a href="{% url 'products' %}" class="btn white rounded-1 m-1">
+                    <a href="{% url 'products' %}" class="btn white rounded-1 m-1" aria-label="go back to products page">
                         <span class="icon">
                             <i class="fas fa-chevron-left"></i>
                         </span>
                         <span>View Wares</span>
                     </a>
-                    <a href="{% url 'checkout' %}" class="btn black rounded-1 m-1">
+                    <a href="{% url 'checkout' %}" class="btn black rounded-1 m-1" aria-label="continue to checkout" rel="nofollow">
                         <span >Secure Checkout</span>
                         <span class="icon">
                             <i class="fas fa-lock"></i>
@@ -91,7 +92,7 @@
         {% else %}
         <div class="justify-self-end float-right w-100">
             <p class="lead mb-5">Your bag is empty.</p>
-            <a href="{% url 'products' %}" class="btn btn-outline-dark rounded-1">
+            <a href="{% url 'products' %}" class="btn btn-outline-dark rounded-1" aria-label="go back to products page">
                 <span class="icon">
                     <i class="fas fa-chevron-left"></i>
                 </span>
