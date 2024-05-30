@@ -17,6 +17,7 @@
 
 ## UX
 
+The UX has been overhauled since last submission. Custom color variables were created and used throughout to have more consistent styling. Aria-labels are present for every link and button. 
 
 ### User Stories and project boards
 
@@ -73,10 +74,25 @@ Additionally, Facebook offer many options for boosting engagement and SEO, both 
 
 ### Mock-up For a Newsletter
 
+- Sign-up 
+
+A stylised newsletter created with [Canva](https://www.canva.com/)
+![newsletter mockup signup](documentation/images/newsletter-signup.png)
+
+- Events
+
+A stylised newsletter created with [Canva](https://www.canva.com/)
+![newsletter mockup events](documentation/images/newsletter-events.png)
+
+I created a palette of three of the same colors used throughout the site for use in the mockups. Branding and logo creation was for paying subscribers only.
+
 ### SiteMap.xml
+
+A site map allow search engines to travers the website and read it more efficiently, marking it as of higher quality for SEO.
 
 ### Robots.txt
 
+Robots.txt restricts the search engine from digging in areas where ther might be sensitive user data and is used in combination with the sitemap to help in attaining SSL certification.
 
 ## Technologies Used
 
