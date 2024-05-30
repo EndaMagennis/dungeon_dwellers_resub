@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /bag/
+Sitemap: https://dungeon-dwellers-resub-bcad99aabba4.herokuapp.com/sitemap.xml
