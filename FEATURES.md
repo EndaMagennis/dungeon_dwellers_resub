@@ -86,6 +86,12 @@ Authenticated users can add items to their wishlist
 
 ### Future Implementations
   
+  ### Mailing List
+  A mailing list is a great way to let loyal customers know about upcoming events, discounts and products
+
+  ### Discounts
+  Add discounts to featured products so that they are not only graphically different from the others
+  
   #### Comments
   Another common fearture that will be added in the future is comments. Comments create more interactivity and generates engagement. 
 
