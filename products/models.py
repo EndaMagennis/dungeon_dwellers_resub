@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator 
+from django.core.validators import MaxValueValidator, MinValueValidator
 from cloudinary.models import CloudinaryField
 import random
 
@@ -19,7 +19,7 @@ class Category(models.Model):
         blank=True,
         null=True,
     )
-    
+
     class Meta:
         # Set the verbose name and verbose name plural
         verbose_name = 'Category'
@@ -29,7 +29,7 @@ class Category(models.Model):
     def __str__(self):
         # Return the name of the category
         return self.name
-    
+
     def generate_friendly_name(self):
         # remove underscores and replace with spaces
         return self.name.replace('_', ' ').title()
@@ -37,7 +37,7 @@ class Category(models.Model):
     def get_friendly_name(self):
         # Return the friendly name of the category
         return self.friendly_name
-    
+
 
 class Tag(models.Model):
     """ A model to represent a tag for a product"""
@@ -53,7 +53,7 @@ class Tag(models.Model):
         blank=True,
         null=True,
     )
-    
+
     class Meta:
         # Set the verbose name and verbose name plural
         verbose_name = 'Tag'
@@ -67,11 +67,11 @@ class Tag(models.Model):
     def generate_friendly_name(self):
         # remove underscores and replace with spaces
         return self.name.replace('_', ' ').title()
-    
+
     def get_friendly_name(self):
         # Return the friendly name of the tag
         return self.friendly_name
-    
+
 
 class Product(models.Model):
 
@@ -104,7 +104,7 @@ class Product(models.Model):
         blank=True,
         verbose_name='Tags',
         related_name='products',
-        help_text= 'Hold "Crtl" while clicking select multiple tags'
+        help_text='Hold "Crtl" while clicking select multiple tags'
     )
     name = models.CharField(
         max_length=255,
@@ -243,7 +243,7 @@ class Product(models.Model):
     def __str__(self):
         # Return the name of the product
         return self.name
-    
+
     def generate_sku(self):
         # Generate a SKU for the product
         self.sku = f'{self.name[:3].upper()}-{random.randint(1000, 9999)}'
@@ -258,18 +258,18 @@ class Product(models.Model):
     def get_rating(self):
         # Return the rating of the product
         return self.rating
-    
+
     def get_price(self):
         # Return the price of the product
         return self.price
-    
+
     def get_all_images(self):
         # Return all images of the product
         images = ProductImage.objects.filter(product=self)
         if images:
             return images
         return False
-    
+
     def get_main_image(self):
         # The get_main_image method returns the main image of the product.
         images = ProductImage.objects.filter(product=self)
@@ -281,7 +281,7 @@ class Product(models.Model):
                     default_image = images[0]
                     return default_image
         return False
-    
+
 
 class ProductImage(models.Model):
     """ A model to represent an image of a product"""
@@ -298,10 +298,10 @@ class ProductImage(models.Model):
         null=True,
         blank=True,
         eager=[
-            {'width': '50', 'height': '50', 'crop':'crop'}
+            {'width':'50', 'height':'50', 'crop':'crop' }
         ],
         transformation={
-            'width': '500', 'height': '500', 'crop':'fill' 
+            'width':'500', 'height' :'500', 'crop' :'fill' 
         }
     )
     is_default = models.BooleanField(
@@ -318,7 +318,7 @@ class ProductImage(models.Model):
     def __str__(self):
         # Return the name of the product
         return self.product.name
-    
+
     def get_image(self):
         # Return the image of the product
         return self.image

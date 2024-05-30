@@ -6,6 +6,7 @@ from django.contrib import messages
 from .models import Wishlist
 from products.models import Product, Tag, Category
 
+
 class WishlistView(View):
     """View for user wishlist"""
     def get(self, request, *args, **kwargs):
@@ -28,31 +29,29 @@ class WishlistView(View):
                 query = request.GET.get('search-input')
                 promo = request.GET.get('promo-input')
                 if query:
-                        products = Product.objects.filter(
-                            Q(name__icontains=query) |
-                            Q(category__friendly_name__icontains=query) |
-                            Q(tags__friendly_name__icontains=query)
-                        ).distinct()
-                        
-                        context = {
-                            'products': products,
-                            'categories': categories,
-                            'tags': tags,
-                            'query': query,
-                        }
-                        template = 'products/products_view.html'
+                    products = Product.objects.filter(
+                        Q(name__icontains=query) |
+                        Q(category__friendly_name__icontains=query) |
+                        Q(tags__friendly_name__icontains=query)
+                    ).distinct()
+
+                    context = {
+                        'products': products,
+                        'categories': categories,
+                        'tags': tags,
+                        'query': query,
+                    }
+                    template = 'products/products_view.html'
                 if promo:
-                        products = Product.objects.filter(is_featured=True)
-                        context= {
-                            'products': products
-                        }
-                        template = 'products/products_view.html'
+                    products = Product.objects.filter(is_featured=True)
+                    context = {
+                        'products': products
+                    }
+                    template = 'products/products_view.html'
 
             return render(request, template, context)
         else:
             return render(request, 'account_login.html')
-        
-        
 
 
 class AddRemoveWishlistView(View):

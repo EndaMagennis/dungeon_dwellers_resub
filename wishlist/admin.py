@@ -22,7 +22,7 @@ class WishlistAdmin(admin.ModelAdmin):
     )
     filter_horizontal = ('products',)
     actions = ['clear_wishlist']
-    
+
     def clear_wishlist(self, request, queryset):
         """Action to clear wishlist"""
         for wishlist in queryset:

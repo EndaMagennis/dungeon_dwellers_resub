@@ -6,6 +6,7 @@ from cloudinary.models import CloudinaryField
 
 from django_countries.fields import CountryField
 
+
 class Profile(models.Model):
     """Model for user profile"""
     user = models.OneToOneField(
@@ -31,10 +32,10 @@ class Profile(models.Model):
         blank=True,
         null=True,
         eager=[
-            {'width': '50', 'height': '50', 'crop':'crop'}
+            {'width': '50', 'height': '50', 'crop': 'crop'}  # noqa
         ],
         transformation={
-            'width': '500', 'height': '500', 'crop':'fill' 
+            'width': '500', 'height': '500', 'crop': 'fill'  # noqa
         }
     )
     created_at = models.DateTimeField(
@@ -55,13 +56,13 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-    
+
     @property
     def avatar_url(self):
         if self.avatar:
             return self.avatar.url
         return 'static/images/default_pfp.jpg'
-    
+
 
 class Address(models.Model):
     """Model for user address"""
@@ -128,12 +129,12 @@ class Address(models.Model):
     )
 
     def __str__(self):
-        return f'{self.address_line_1}, {self.city}, {self.country} {self.post_code}'
-    
+        return f'{self.address_line_1}, {self.city}, {self.country} {self.post_code}'  # noqa
+
     def save(self, *args, **kwargs):
         """Set default address to False if another address is set to True"""
         super().save(*args, **kwargs)
-        
+
         if self.is_default:
             for address in self.user.addresses.exclude(id=self.id):
                 address.is_default = False

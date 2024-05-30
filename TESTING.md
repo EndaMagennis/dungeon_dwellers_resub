@@ -145,3 +145,7 @@ The issue, as far as I can tell, was due to having separate models for the profi
 
 By feeding the required data from both models, the form could save correctly and generate an order. Stripe could then read the neccessary data from the order and continue with the payment process
 
+- ### Addresses
+
+When registering a new user, a blank address was created however the order form is populated and replaces the defalut address, so when a user had not updated their profile before placing an order, and checking the save data option, an error was returned. Now upon registration, a blank address is instantiated and set as the default. 
+

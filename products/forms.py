@@ -8,9 +8,11 @@ from .models import Product, Category, Tag, ProductImage
 
 from django import forms
 
+
 # Override ClearableFileInput to allow Multiple uploads
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
+
 
 # Create a multipleFileField to allow multiple image uploads
 class MultipleFileField(forms.FileField):
@@ -30,13 +32,17 @@ class MultipleFileField(forms.FileField):
 class ProductForm(ModelForm):
     """Form for uploading new product"""
     images = MultipleFileField(
-        required=False, 
-        help_text= 'Hold "Ctrl" while clicking to select mulitple images'
+        required=False,
+        help_text='Hold "Ctrl" while clicking to select mulitple images'
     )
+
     class Meta:
         model = Product
         fields = '__all__'
-        exclude = ('slug', 'created_at', 'updated_at', 'is_active', 'sku', 'rating')
+        exclude = (
+            'slug', 'created_at', 'updated_at',
+            'is_active', 'sku', 'rating'
+        )
         widgets = {
             'images': MultipleFileField(),
             'is_featured': forms.CheckboxInput(),
@@ -48,6 +54,6 @@ class ProductForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         categories = self.fields['category'].queryset = Category.objects.all()
         tags = self.fields['tags'].queryset = Tag.objects.all()

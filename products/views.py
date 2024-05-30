@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.views.generic.edit import DeleteView
-from .models import Product,Category, Tag, ProductImage
+from .models import Product, Category, Tag, ProductImage
 from wishlist.models import Wishlist
 from .forms import ProductForm
 from django.contrib import messages
@@ -12,7 +12,7 @@ from django.contrib import messages
 
 class ProductListView(View):
     """ A view to return the home page """
-    
+
     def get(self, request, *args, **kwargs):
         # Get the user's wishlist if they are logged in
         if request.user.is_authenticated:
@@ -40,7 +40,6 @@ class ProductListView(View):
                     Q(category__friendly_name__icontains=query) |
                     Q(tags__friendly_name__icontains=query)
                 ).distinct()
-                
                 context = {
                     'products': products,
                     'categories': categories,
@@ -51,7 +50,7 @@ class ProductListView(View):
             if promo:
                 products = Product.objects.filter(is_featured=True)
 
-                context= {
+                context = {
                     'products': products
                 }
 
@@ -76,15 +75,15 @@ class ProductDetailView(View):
         tags = Tag.objects.all()
 
         product = get_object_or_404(Product, id=product_id)
-        
+
         images = ProductImage.objects.filter(
-            product = product,
+            product=product,
         )
         template = 'products/product_detail.html'
 
         context = {
             'product': product,
-            'images' : images
+            'images': images
         }
 
         if request.GET:
@@ -96,7 +95,7 @@ class ProductDetailView(View):
                     Q(category__friendly_name__icontains=query) |
                     Q(tags__friendly_name__icontains=query)
                 ).distinct()
-                
+
                 context = {
                     'products': products,
                     'categories': categories,
@@ -104,16 +103,15 @@ class ProductDetailView(View):
                     'query': query,
                 }
                 template = 'products/products_view.html'
-            
+
             if promo:
                 products = Product.objects.filter(is_featured=True)
 
-                context= {
+                context = {
                     'products': products
                 }
                 template = 'products/products_view.html'
 
-        
         return render(request, template, context)
 
 
@@ -150,12 +148,12 @@ class ProductAddView(View):
 
 
 class ProductEditView(View):
- 
+
     def get(self, request, product_id, *args, **kwargs):
         if not request.user.is_superuser:
             messages.error(request, 'Sorry, only store owners can do that.')
             return redirect(reverse('home'))
-        
+
         product = get_object_or_404(Product, pk=product_id)
         product_form = ProductForm(instance=product)
 
@@ -166,7 +164,6 @@ class ProductEditView(View):
 
         return render(request, 'products/product_edit.html', context)
 
-
     def post(self, request, product_id, *args, **kwargs):
         if not request.user.is_superuser:
             messages.error(request, 'Sorry, only store owners can do that.')
@@ -174,16 +171,22 @@ class ProductEditView(View):
 
         product = get_object_or_404(Product, pk=product_id)
         if request.method == 'POST':
-            product_form = ProductForm(request.POST, request.FILES, instance=product)
+            product_form = ProductForm(
+                request.POST, request.FILES, instance=product
+            )
             images = request.FILES.getlist('images')
             if product_form.is_valid():
                 product = product_form.save()
                 for i in images:
                     ProductImage(product=product, image=i).save()
-                messages.success(request, 'Successfully updated product!')
+                messages.success(
+                    request, 'Successfully updated product!'
+                )
                 return redirect('products')
             else:
-                messages.error(request, 'Failed to update product. Please ensure the form is valid.')
+                messages.error(
+                    request, 'Failed to update product. Please ensure the form is valid.'  # noqa
+                )
         else:
             product_form = ProductForm(instance=product)
             context = {
@@ -203,12 +206,11 @@ class ProductDeleteView(DeleteView):
         if not request.user.is_superuser:
             messages.error(request, 'Sorry, only store owners can do that.')
             return redirect(reverse('home'))
-    
+
         product = get_object_or_404(Product, pk=product_id)
         product.delete()
         messages.success(request, 'Product deleted!')
         return redirect(reverse('products'))
-
 
 
 class ProductImageAddView(View):
@@ -221,7 +223,6 @@ class ProductImageAddView(View):
 
         product = get_object_or_404(Product, pk=product_id)
         product_image = ProductImage()
-        
         context = {
             'product': product,
             'product_image': product_image,

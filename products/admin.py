@@ -12,7 +12,7 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ['name', 'friendly_name']
     ordering = ['name']
 
-    
+
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = (
@@ -32,7 +32,6 @@ class ProductAdmin(SummernoteModelAdmin):
         'price',
         'category',
     )
-    
     search_fields = ['name', 'category', 'tag']
     ordering = ['name']
 

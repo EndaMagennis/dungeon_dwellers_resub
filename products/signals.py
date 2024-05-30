@@ -8,5 +8,3 @@ def get_image_url(sender, instance, **kwargs):
     # Get the image url and save it to the instance
     instance.image_url = instance.image.url
     instance.save()
-
-

@@ -5,14 +5,16 @@ from .models import Order
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ('full_name', 'email', 'phone_number', 
-                  'country', 'post_code', 'city', 
-                  'address_line_1', 'address_line_2', 
-                  'county',)
-    
+        fields = (
+            'full_name', 'email', 'phone_number',
+            'country', 'post_code', 'city',
+            'address_line_1', 'address_line_2',
+            'county',
+        )
+
     def __init__(self, *args, **kwargs):
         """
-        Add placeholders and classes, remove auto-generated 
+        Add placeholders and classes, remove auto-generated
         labels and set autofocus on first field
         """
 
