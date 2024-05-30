@@ -203,6 +203,7 @@ Please refer to [TESTING.md](TESTING.md)
 
 ## Credits
 
+- [github education](https://education.github.com/): was the inspiratioin for the footer styling
 - [this thread](https://forum.djangoproject.com/t/multiple-image-upload-like-ecommerce-application/12826/10): was instrumental in helping to learn how to upload multiple images for one product
 - [Stackoverflow](https://stackoverflow.com/questions/44075143/multiple-images-in-django-form-with-multiupload): again, for major assistence with multiple file/image uploads
 - [github blog](https://github.com/mchesler613/django_adventures/blob/main/multi-modelforms_in_template.md): which helped with combining model forms
