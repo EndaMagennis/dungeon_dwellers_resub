@@ -110,7 +110,6 @@ def checkout(request):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
-        print(intent)
 
         if request.user.is_authenticated:
             try:
@@ -184,7 +183,6 @@ def checkout_success(request, order_number):
                 updated_address = user_address_form.save(commit=False)
                 updated_address.is_default = True
                 updated_address.save()
-
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')

@@ -124,33 +124,6 @@ Testing was carried out on a near constant basis, with each new feature
 
 In the previous submission, non-admin users were able to access the datastore by adding url endpoints. This has since been rectified in the views by checking whethr the user is a superuser were relevant.
 
-## Errors
-
-While there were numerous bugs and minor errors throughout development, many were common errors such as path-to-file errors or spelling errors when referencing variables or methods. As this is a re-submission, below are the fixes to persistent errors from the previous submission
-
-- ### Payments
-
-Payments now work as intended and the user is sent email confirmation of the order
-
-- Stripe backend
-![stripe backend](documentation/images/payments.png)
-
-The issue, as far as I can tell, was due to having separate models for the profile and the adress. I had previously simply followed the Boutique Ado tutorial for creating order form data to populate the address and billing info, only referencing my profile model.
-
-- Boutique Ado checkout logic`
-
-![boutique ado checkout logic](documentation/bugs/tut-payments.png)
-
-- My updated checkou logic
-
-![updated checkout logic](documentation/bugs/fix-payments.png)
-
-By feeding the required data from both models, the form could save correctly and generate an order. Stripe could then read the neccessary data from the order and continue with the payment process
-
-- ### Addresses
-
-When registering a new user, a blank address was created however the order form is populated and replaces the defalut address, so when a user had not updated their profile before placing an order, and checking the save data option, an error was returned. Now upon registration, a blank address is instantiated and set as the default. 
-
 ## Validation
 
 - ### Python 
@@ -205,3 +178,53 @@ The wishlist was modelled from the products view so the same error was raised
 
 ## Lighthouse
 
+- [Home Page](https://pagespeed.web.dev/analysis/https-dungeon-dwellers-resub-bcad99aabba4-herokuapp-com/smhsv1u71t?form_factor=desktop&category=performance&category=accessibility&category=best-practices&category=seo&hl=en-GB&utm_source=lh-chrome-ext)
+
+- [Products View](https://pagespeed.web.dev/analysis/https-dungeon-dwellers-resub-bcad99aabba4-herokuapp-com-products/1e1rnjx08t?form_factor=desktop&category=performance&category=accessibility&category=best-practices&category=seo&hl=en-GB&utm_source=lh-chrome-ext)
+
+- [Product Details View](https://pagespeed.web.dev/analysis/https-dungeon-dwellers-resub-bcad99aabba4-herokuapp-com-products-12/yhorzz7fg9?form_factor=desktop&category=performance&category=accessibility&category=best-practices&category=seo&hl=en-GB&utm_source=lh-chrome-ext)
+
+- [Login](https://pagespeed.web.dev/analysis/https-dungeon-dwellers-resub-bcad99aabba4-herokuapp-com-accounts-login/p8i111ajxe?hl=en-GB&form_factor=desktop)
+
+- [Bag](https://pagespeed.web.dev/analysis/https-dungeon-dwellers-resub-bcad99aabba4-herokuapp-com-bag/sw43hg0v9e?form_factor=desktop&category=performance&category=accessibility&category=best-practices&category=seo&hl=en-GB&utm_source=lh-chrome-ext)
+
+
+- [Register](https://pagespeed.web.dev/analysis/https-dungeon-dwellers-resub-bcad99aabba4-herokuapp-com-accounts-signup/dvx4yhrha6?form_factor=desktop&category=performance&category=accessibility&category=best-practices&category=seo&hl=en-GB&utm_source=lh-chrome-ext)
+
+
+Logout, profile and checkout could not be analysed accurately and were redirected to other pages.
+
+![lighthouse error](documentation/validation/lighthouse.png)
+
+
+## Errors
+
+While there were numerous bugs and minor errors throughout development, many were common errors such as path-to-file errors or spelling errors when referencing variables or methods. As this is a re-submission, below are the fixes to persistent errors from the previous submission
+
+- ### Payments
+
+Payments now work as intended and the user is sent email confirmation of the order
+
+- Stripe backend
+![stripe backend](documentation/images/payments.png)
+
+The issue, as far as I can tell, was due to having separate models for the profile and the adress. I had previously simply followed the Boutique Ado tutorial for creating order form data to populate the address and billing info, only referencing my profile model.
+
+- Boutique Ado checkout logic`
+
+![boutique ado checkout logic](documentation/bugs/tut-payments.png)
+
+- My updated checkou logic
+
+![updated checkout logic](documentation/bugs/fix-payments.png)
+
+By feeding the required data from both models, the form could save correctly and generate an order. Stripe could then read the neccessary data from the order and continue with the payment process
+
+- ### Addresses
+
+When registering a new user, a blank address was created however the order form is populated and replaces the defalut address, so when a user had not updated their profile before placing an order, and checking the save data option, an error was returned. Now upon registration, a blank address is instantiated and set as the default. 
+
+
+- ## Persistent Bugs
+
+While payments and email notifications work, if the user refreshes the page on the checkout success screen, the email trigger fires again. However, the stripe payment is not reissued and the order is not duplicated in the back end. 
