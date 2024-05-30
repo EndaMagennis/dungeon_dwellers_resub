@@ -227,4 +227,4 @@ When registering a new user, a blank address was created however the order form 
 
 - ## Persistent Bugs
 
-While payments and email notifications work, if the user refreshes the page on the checkout success screen, the email trigger fires again. However, the stripe payment is not reissued and the order is not duplicated in the back end. 
+While payments and email notifications work, if the user refreshes the page on the checkout success screen, the email trigger fires again. However, the stripe payment is not reissued and the order is not duplicated in the back end, which is very positive

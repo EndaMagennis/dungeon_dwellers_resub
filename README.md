@@ -7,7 +7,7 @@
 
 
 ## Card details for test payment
-4242424242424242 24/42 42424
+4242424242424242 04/28 42424
 
 ## About 
    
@@ -203,10 +203,13 @@ Please refer to [TESTING.md](TESTING.md)
 
 - The site was deployed using [Heroku](https://id.heroku.com/login)
 - The database was deployed to [CI Database Maker](https://dbs.ci-dbs.net/)
-- The app is available [here](https://board-ohm-5d4ddb906f72.herokuapp.com/)
+- The app is available [here](https://dungeon-dwellers-resub-bcad99aabba4.herokuapp.com/)
 
 ## Credits
 
+- [this thread](https://forum.djangoproject.com/t/multiple-image-upload-like-ecommerce-application/12826/10): was instrumental in helping to learn how to upload multiple images for one product
+- [Stackoverflow](https://stackoverflow.com/questions/44075143/multiple-images-in-django-form-with-multiupload): again, for major assistence with multiple file/image uploads
+- [github blog](https://github.com/mchesler613/django_adventures/blob/main/multi-modelforms_in_template.md): which helped with combining model forms
 - [boardgamegeek](https://boardgamegeek.com/blogpost/156777/2023-year-in-review-day-four-all-the-board-games-a): is one location I used to pull images from for my models
 - [boardgamequest](https://www.boardgamequest.com/top-10-board-games-of-2023/): the other site I pulled images from for my models
 - [Edgar Sánchez Hidalgo](https://www.artstation.com/artwork/nELnqO): whose work was used for the background image
@@ -225,3 +228,4 @@ Please refer to [TESTING.md](TESTING.md)
 
 - [Iuliia Konovalova](https://github.com/IuliiaKonovalova): my mentor who continually motivates me to go big.
 - [CodeInstiute](https://codeinstitute.net/ie/): for giving me the tools and knoweldge
+
