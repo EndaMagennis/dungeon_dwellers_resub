@@ -138,10 +138,6 @@ Robots.txt restricts the search engine from digging in areas where ther might be
 
 Please refer to the [FEATURES.md](FEATURES.md) file for all feature-related documentation.
 
-## Testing
-
-Please refer to the [TESTING.md](TESTING.md) file for testing
-
 ---
 ## Design
 
