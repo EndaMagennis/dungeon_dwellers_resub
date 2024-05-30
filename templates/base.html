@@ -112,21 +112,17 @@
                 </form>
                 {% if user.is_authenticated %}
                     {% if user.profile.avatar %}
-                    <div class="">
-                        <li class="nav-link">
+                        <div class="nav-link">
                             <a href="{% url 'profile' user=request.user %}" aria-label="redirects to profile page">
                                 <img class="profile-icon" src="{{ user.profile.avatar.url }}" alt="{{ user.username }} avatar">
                             </a>
-                        </li>
-                    </div>
+                        </div>
                     {% else %}
-                    <div class="">
-                        <li class="nav-link">
+                        <div class="nav-link">
                             <a href="{% url 'profile' user=request.user %}" aria-label="redirects to profile page">
                                 <img class="profile-icon" src="{% static 'images/default_pfp.jpg' %}" alt="{{ user.username }} avatar">
                             </a>
-                        </li>
-                    </div>
+                        </div>
                 {% endif %}
             </div>
             {% endif %}

@@ -137,10 +137,12 @@ Payments now work as intended and the user is sent email confirmation of the ord
 
 The issue, as far as I can tell, was due to having separate models for the profile and the adress. I had previously simply followed the Boutique Ado tutorial for creating order form data to populate the address and billing info, only referencing my profile model.
 
-- Boutique Ado checkout logic
+- Boutique Ado checkout logic`
+
 ![boutique ado checkout logic](documentation/bugs/tut-payments.png)
 
 - My updated checkou logic
+
 ![updated checkout logic](documentation/bugs/fix-payments.png)
 
 By feeding the required data from both models, the form could save correctly and generate an order. Stripe could then read the neccessary data from the order and continue with the payment process
@@ -148,4 +150,58 @@ By feeding the required data from both models, the form could save correctly and
 - ### Addresses
 
 When registering a new user, a blank address was created however the order form is populated and replaces the defalut address, so when a user had not updated their profile before placing an order, and checking the save data option, an error was returned. Now upon registration, a blank address is instantiated and set as the default. 
+
+## Validation
+
+- ### Python 
+All python scripts were run through [Code Institute Pep8 linter](pep8ci.herokuapp.com). There were a few instances of lines being too long, however, they could not be indented without causing runtime errors. In this cases '# noqa' was used inline to prevent the error
+
+- ### CSS
+CSS files were validated through [W3C CSS validator](https://jigsaw.w3.org/css-validator/).
+
+- base.css
+
+![base.css valid](documentation/validation/base-css.png)
+
+- checkout.css
+
+![checkout.css valid](documentation/validation/checkout-css.png)
+
+- ### HTML
+
+Given that django's templateing language interferes with the [W3C Validator](https://validator.w3.org/) readout, the HTML was validated by running the source code of the development site through the validator
+
+I have only included errors below but the html was validated repeatedly until all errors were gone 
+
+- base.html
+
+![base.html](documentation/validation/html-valid.png)
+
+- bag.html
+
+![bag.html](documentation/validation/bag-valid.png)
+
+- checkout error
+
+![checkout.html](documentation/validation/checkout-error.png)
+This is part of loading overlay
+
+- products
+
+![products_view.html](documentation/validation/products-error.png)
+
+- update profile
+
+![update profile](documentation/validation/update-profile.png)
+This seems to be an error raised through rendering crispy forms as my code does not contain the id mentioned.
+
+
+- wishlist
+
+![wishlist.html](documentation/validation/wishlist-error.png)
+
+The wishlist was modelled from the products view so the same error was raised
+
+
+## Lighthouse
 

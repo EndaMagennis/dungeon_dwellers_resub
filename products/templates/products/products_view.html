@@ -53,7 +53,7 @@
                         <div class="card-body">
                             <h5 class="card-title mx-2 text-decoration-underline"><strong>{{ product.name }}</strong></h5>
                             <form role="search" method="GET" class="d-inline">
-                                <input type="hidden" placeholder="Search" aria-label="Search" name="search-input" value="{{ product.category.friendly_name }}">
+                                <input type="hidden" name="search-input" value="{{ product.category.friendly_name }}">
                                 <button type="submit" class="blue-light btn btn-sm" data-toggle="tooltip" title="{{ product.category.friendly_name }}" aria-label="button for {{ product.category.friendly_name }} whcih will return a page of products in that category">{{ product.category.friendly_name | truncatechars:10 }}</button>
                             </form>
                             {% if user.is_authenticated %}
@@ -80,7 +80,7 @@
                             {% for tag in product.tags.all %}
                             <form class="m-0" role="search" method="GET">
                                 {% csrf_token %}
-                                <input type="hidden" placeholder="Search" aria-label="Search" name="search-input" value="{{ tag.friendly_name }}">
+                                <input type="hidden" name="search-input" value="{{ tag.friendly_name }}">
                                 <button type="submit" class="blue-light tag-button btn btn-sm d-inline" data-toggle="tooltip" title="{{ tag.friendly_name }}" 
                                 aria-label="button for {{ tag.friendly_name }} which will return a page of products with that tag">
                                     <i class="fa-solid fa-tag fa-sm"></i> {{ tag.friendly_name | truncatechars:10 }}
@@ -115,19 +115,19 @@
             <div class="pagination my-5 col p-3 justify-content-center">
                 <span class="page-links mr-2">
                     {% if products.has_previous %}
-                        <a href="?page=1" class="btn btn-dark" data-toggle="tooltip" title="Jump to First page" aria-label="Go to first page of products">
+                        <a href="?page=1" class="btn black" data-toggle="tooltip" title="Jump to First page" aria-label="Go to first page of products">
                             <i class="fa fa-caret-left"></i><i class="fa fa-caret-left"></i> First</a>
-                        <a href="?page={{ products.previous_page_number }}" class="btn btn-dark" data-toggle="tooltip" title="Jump to previous page of products" 
+                        <a href="?page={{ products.previous_page_number }}" class="btn black" data-toggle="tooltip" title="Jump to previous page of products" 
                             aria-label="Go to previous page of products">
                             <i class="fa fa-caret-left"></i> Previous</a>
                     {% endif %}
                 </span>
                 <span class="page-links ml-2">
                     {% if products.has_next %}
-                        <a href="?page={{ products.next_page_number }}" class="btn btn-dark" data-toggle="tooltip" title="Jump to next page of products" 
+                        <a href="?page={{ products.next_page_number }}" class="btn black" data-toggle="tooltip" title="Jump to next page of products" 
                         aria-label="Go to next page of products">Next 
                             <i class="fa fa-caret-right"></i></a>
-                        <a href="?page={{ products.paginator.num_pages }}" class="btn btn-dark" class="btn btn-dark" data-toggle="tooltip" 
+                        <a href="?page={{ products.paginator.num_pages }}" class="btn black" data-toggle="tooltip" 
                             title="Jump to final page of products" aria-label="Go to final page of products">Last 
                             <i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></a>
                     {% endif %}

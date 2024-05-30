@@ -286,7 +286,7 @@ body {
 
 .action-container {
     background-color: var(--clr-black-75);
-    color: var(var(--clr-white));
+    color: var(--clr-white);
 }
 
 .shop-now-button {
@@ -364,7 +364,6 @@ body {
 
 .card-container {
     display: flex;
-    align-items: top;
     justify-content: center;
     width: 100%;
 }
@@ -379,7 +378,7 @@ body {
     min-height: 300px;
     margin: 1em;
     padding: 0.5em;
-    color: 2E4057;
+    color: #2E4057;
 }
 
 .card-body {
